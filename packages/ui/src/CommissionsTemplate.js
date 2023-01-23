@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { getSales, payCommissions, useUser } from '@/utils/useUser';
 import { useCompany } from '@/utils/CompanyContext';
 import LoadingTile from '@/components/LoadingTile';
@@ -11,6 +11,7 @@ import ReactTooltip from 'react-tooltip';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ExclamationIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
+import { CSVDownload } from "react-csv";
 import toast from 'react-hot-toast';
 
 export const CommissionsTemplate = ({ page }) => {
@@ -19,6 +20,7 @@ export const CommissionsTemplate = ({ page }) => {
   const [commissions, setCommissions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [downloadCSV, setDownloadCSV] = useState(false);
   const [checkedAll, setCheckedAll] = useState(false);
   const [payingCommissions, setPayingCommissions] = useState(false);
   const router = useRouter();
@@ -100,11 +102,42 @@ export const CommissionsTemplate = ({ page }) => {
     });
   };
 
-  const exportCSV = async () => {
-    if(checkedItems?.length === 0 && checkedAll === false) return false;
-
-    alert('Test mode enabled.')
+  let newCSVDownloadItems = [];
+  if(commissions?.data?.length > 0){
+    if(checkedItems?.length === 0){
+      commissions?.data?.map(commission => {
+        newCSVDownloadItems.push([ 
+          commission?.affiliate?.details?.paypal_email,
+          priceStringDivided(commission?.commission_sale_value, activeCompany?.company_currency),
+          commission?.commission_id,
+          activeCompany?.company_currency,
+          `This is a commission payment from ${activeCompany?.company_name} for commission ${commission?.commission_id}`
+        ]);
+      })
+    } else {
+      commissions?.data?.map(commission => {
+        checkedItems?.map(checkedItem => {
+          if(commission?.commission_id === checkedItem){
+            newCSVDownloadItems.push([ 
+              commission?.affiliate?.details?.paypal_email,
+              priceStringDivided(commission?.commission_sale_value, activeCompany?.company_currency),
+              commission?.commission_id,
+              activeCompany?.company_currency,
+              `This is a commission payment from ${activeCompany?.company_name} for commission ${commission?.commission_id}`
+            ]);
+          }
+        })
+      })
+    }
   }
+
+  useEffect(() => {
+    if(downloadCSV === true){
+      setTimeout(() => {
+        setDownloadCSV(false);
+      }, 1000);
+    }
+  }, [downloadCSV])
 
   return (
     <>
@@ -177,11 +210,11 @@ export const CommissionsTemplate = ({ page }) => {
                   {
                     page !== 'index' && page !== 'pending' &&
                     <Button
-                      onClick={e=>{exportCSV()}}
+                      onClick={e=>{setDownloadCSV(true)}}
                       small
                       gray
                     >
-                      Export {checkedItems.length === 0 && checkedAll === true ? 'all' : checkedItems.length} {checkedItems?.length > 1 ? 'commissions' : checkedItems?.length === 0 ? 'commissions' : 'commission'} as PayPal CSV
+                      Export {checkedItems.length === 0 ? 'all' : checkedItems.length} {checkedItems?.length > 1 ? 'commissions' : checkedItems?.length === 0 ? 'commissions' : 'commission'} as PayPal CSV
                     </Button> 
                   }
                 </div>
@@ -392,6 +425,10 @@ export const CommissionsTemplate = ({ page }) => {
             <LoadingTile/>
         }
       </div>
+      {
+        downloadCSV === true &&
+        <CSVDownload data={newCSVDownloadItems} target="_blank" />
+      }
     </>
   );
 };
