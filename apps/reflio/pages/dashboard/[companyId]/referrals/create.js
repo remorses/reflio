@@ -46,6 +46,7 @@ export default function ReferralCreatePage() {
         data: { 
           companyId: router?.query?.companyId,
           campaignId: data?.campaign_id,
+          teamId: activeCompany?.team_id,
           affiliateId: data?.affiliate_id,
           emailAddress: data?.email_address,
           stripeAccountId: activeCompany?.stripe_id,

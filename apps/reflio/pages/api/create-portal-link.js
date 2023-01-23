@@ -7,9 +7,10 @@ import { withSentry } from '@sentry/nextjs';
 const createPortalLink = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.headers.token;
+    const { teamId } = req.body;
 
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
       const customer = await createOrRetrieveCustomer({
         teamId: user.team_id,
         email: user.email

@@ -5,10 +5,10 @@ import { withSentry } from '@sentry/nextjs';
 const createReferral = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.headers.token;
-    const { companyId, campaignId, affiliateId, emailAddress, orderId } = req.body;
+    const { companyId, teamId, campaignId, affiliateId, emailAddress, orderId } = req.body;
     
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
 
       if(user){
         const create = await referralCreate(user, companyId, campaignId, affiliateId, emailAddress, orderId);

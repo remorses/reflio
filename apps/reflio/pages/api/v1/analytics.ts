@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getUser } from '@/utils/supabase-admin';
 import { supabaseAdmin } from '@/utils/supabase-admin';
 
-export default async function paddleSetupHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function analyticsApi(req: NextApiRequest, res: NextApiResponse) {
   try {    
     if (req.method === "POST") {
       const { companyId, teamId, companyName, campaignId, affiliates, logoUrl, emailSubject, emailContent } = req.body as { companyId: string, teamId: string, companyName: string, campaignId: string, affiliates: Array<string>, logoUrl: string, emailSubject: string, emailContent: string };

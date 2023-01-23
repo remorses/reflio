@@ -1,4 +1,4 @@
-import { Logo } from '@/components/Icons/Logo';
+import { LogoOriginal } from '@/components/Icons/LogoOriginal';
 import Link from 'next/link';
 import { AdminNavItems } from './AdminNavItems';
 
@@ -10,7 +10,7 @@ export const AdminDesktopNav = () => {
           <div className="flex flex-col flex-grow pt-8 pb-4 overflow-y-auto">
             <div className="flex flex-col justify-center items-center flex-shrink-0 px-4">
               <Link href="/dashboard">
-                <Logo className="h-10 w-full"/>
+                <LogoOriginal className="h-10 w-full"/>
               </Link>
             </div>
             <AdminNavItems/>

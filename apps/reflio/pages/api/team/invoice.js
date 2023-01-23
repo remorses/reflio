@@ -5,10 +5,10 @@ import { withSentry } from '@sentry/nextjs';
 const teamInvoice = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.headers.token;
-    const { currency, commissions } = req.body;
+    const { currency, commissions, teamId } = req.body;
     
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
 
       if(user){
         const data = await billingGenerateInvoice(user, currency, commissions);

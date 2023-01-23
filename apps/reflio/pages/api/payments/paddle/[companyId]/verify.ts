@@ -20,6 +20,7 @@ export default async function paddleSetupHandler(req: NextApiRequest, res: NextA
         .single();
         
       if(companyFromId?.data === null){
+        console.log('COMPANY NOT FOUND!!!')
         return res.status(400).json({ 'message': 'Company not found'});
       }
 
@@ -36,6 +37,8 @@ export default async function paddleSetupHandler(req: NextApiRequest, res: NextA
       return res.status(405).json({ 'message': 'Method not allowed'});
     }
   } catch (error) {
+    console.log('error:')
+    console.log(error)
     return res.status(400).json({ 'message': error});
   }
 }

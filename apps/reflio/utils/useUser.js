@@ -394,9 +394,6 @@ export const continueWithoutProcessor = async (companyId) => {
     })
     .eq('company_id', companyId);
 
-    console.log("error!!!")
-    console.log(error)
-
   if (error) return "error";
 
   return "success";
@@ -475,10 +472,6 @@ export const newCampaign = async (user, form, companyId) => {
     if(data?.length === 0){
       formFields.default_campaign = true;
     }
-    console.log("data:")
-    console.log(data)
-    console.log("formFields:")
-    console.log(formFields)
   
   if(formFields.default_campaign && formFields.default_campaign === true && data?.length > 0){
     data?.map(async campaign => {
@@ -488,7 +481,6 @@ export const newCampaign = async (user, form, companyId) => {
           default_campaign: false
         })
         .eq('campaign_id', campaign?.campaign_id);
-        console.log(campaignEdit)
     })
   }
 
@@ -659,7 +651,7 @@ export const addPaymentIntegration = async(session, companyId, paymentType, form
       },
       token: session.access_token
     });
-
+    
     if(verifyCall?.message === "success" && cryptoCall?.message === "success" && cryptoCall?.data?.length){
       const { error } = await supabase
         .from('companies')
@@ -810,9 +802,6 @@ export const uploadLogoImage = async (companyId, file) => {
     cacheControl: '0',
     upsert: true
   })
-
-  console.log("error:")
-  console.log(error)
 
   if (error) return error;
 

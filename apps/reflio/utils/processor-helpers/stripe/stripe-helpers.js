@@ -61,8 +61,20 @@ export const createStripeCommission = async(data, stripeId, manualReferralId) =>
       
     //If referral is valid, continue
     if(referralFromId?.data !== null){
-
       let continueProcess = true;
+
+      //Check if referral is valid in DB
+      let companyFromId = await supabaseAdmin
+        .from('companies')
+        .select('company_id, payment_integration_field_one')
+        .eq('company_id', referralFromId?.data?.company_id)
+        .eq('payment_integration_field_one', stripeId)
+        .single();
+        
+      if(companyFromId?.data === null){
+        console.log('DOES NOT MATCH COMPANY!!!!!! EXITING!!!!!')
+        return "error";
+      }
 
       //Check if there is an earlier commission with the same referral ID... if so, check if payment limit has been reached
       let earliestCommission = await supabaseAdmin

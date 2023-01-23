@@ -8,10 +8,12 @@ const teamUsage = async (req, res) => {
     const { teamId } = req.body;
     
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
 
       if(user){
         const data = await billingUsageDetails(teamId);
+
+        console.log(data)
 
         if(data !== "error"){
           return res.status(200).json({ response: data });

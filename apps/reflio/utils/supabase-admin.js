@@ -5,7 +5,33 @@ export const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-export const getUser = async (token) => {
+export const getUser = async (token, teamId) => {
+  let dataToReturn = null;
+
+  const { data, error } = await supabaseAdmin.auth.api.getUser(token);
+
+  if (error) {
+    throw error;
+  }
+
+  if(data){
+    dataToReturn = data;
+
+    const userData = await supabaseAdmin.from('users').select('*').eq('id', data?.id).single();
+
+    if(userData?.data?.team_id){
+      dataToReturn.team_id = userData?.data?.team_id;
+    }
+  }
+
+  if(dataToReturn?.team_id !== teamId){
+    return "not authorized"
+  }
+
+  return dataToReturn;
+};
+
+export const getUserBypass = async (token) => {
   let dataToReturn = null;
 
   const { data, error } = await supabaseAdmin.auth.api.getUser(token);

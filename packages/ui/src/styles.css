@@ -257,3 +257,7 @@ a {
   content: '✓';
   margin-right: 6px;
 }
+
+#tsparticles canvas {
+  position: relative !important;
+}

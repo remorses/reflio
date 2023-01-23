@@ -797,16 +797,8 @@ video {
   margin-top: 1.5rem;
 }
 
-.mt-10 {
-  margin-top: 2.5rem;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
-}
-
-.mr-6 {
-  margin-right: 1.5rem;
+.mr-1 {
+  margin-right: 0.25rem;
 }
 
 .-mr-12 {
@@ -837,8 +829,8 @@ video {
   margin-bottom: 1.75rem;
 }
 
-.mr-1 {
-  margin-right: 0.25rem;
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .mt-16 {
@@ -959,10 +951,6 @@ video {
 
 .h-96 {
   height: 24rem;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-10 {
@@ -1256,6 +1244,10 @@ video {
           user-select: none;
 }
 
+.resize {
+  resize: both;
+}
+
 .list-disc {
   list-style-type: disc;
 }
@@ -1284,6 +1276,10 @@ video {
 
 .justify-start {
   justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1514,6 +1510,10 @@ video {
   border-width: 1px;
 }
 
+.border-8 {
+  border-width: 8px;
+}
+
 .border-l-4 {
   border-left-width: 4px;
 }
@@ -1522,12 +1522,12 @@ video {
   border-top-width: 4px;
 }
 
-.border-b-2 {
-  border-bottom-width: 2px;
-}
-
 .border-b-4 {
   border-bottom-width: 4px;
+}
+
+.border-b-2 {
+  border-bottom-width: 2px;
 }
 
 .border-r-4 {
@@ -1677,9 +1677,8 @@ video {
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
-.bg-gray-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+.bg-secondary-3 {
+  background-color: var(--secondary-3);
 }
 
 .bg-orange-400 {
@@ -1694,6 +1693,11 @@ video {
 .bg-gray-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .bg-red-600 {
@@ -1724,18 +1728,12 @@ video {
   --tw-bg-opacity: 0.75;
 }
 
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
-
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
-.from-secondary {
-  --tw-gradient-from: var(--secondary);
-  --tw-gradient-to: rgb(255 255 255 / 0);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 .from-primary {
@@ -1744,8 +1742,14 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-white {
-  --tw-gradient-from: #fff;
+.from-secondary {
+  --tw-gradient-from: var(--secondary);
+  --tw-gradient-to: rgb(255 255 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-secondary-3 {
+  --tw-gradient-from: var(--secondary-3);
   --tw-gradient-to: rgb(255 255 255 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
@@ -1762,6 +1766,17 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-white {
+  --tw-gradient-from: #fff;
+  --tw-gradient-to: rgb(255 255 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-secondary-2 {
+  --tw-gradient-to: rgb(255 255 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--secondary-2), var(--tw-gradient-to);
+}
+
 .via-gray-50 {
   --tw-gradient-to: rgb(249 250 251 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), #f9fafb, var(--tw-gradient-to);
@@ -1772,12 +1787,12 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--primary), var(--tw-gradient-to);
 }
 
-.to-secondary-2 {
-  --tw-gradient-to: var(--secondary-2);
-}
-
 .to-primary-2 {
   --tw-gradient-to: var(--primary-2);
+}
+
+.to-secondary-2 {
+  --tw-gradient-to: var(--secondary-2);
 }
 
 .to-primary {
@@ -1893,9 +1908,9 @@ video {
   padding-bottom: 3.5rem;
 }
 
-.py-2\.5 {
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem;
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .py-24 {
@@ -1913,9 +1928,9 @@ video {
   padding-right: 0.5rem;
 }
 
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .px-0 {
@@ -1931,11 +1946,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .pl-4 {
@@ -2229,6 +2239,10 @@ video {
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
+.text-primary {
+  color: var(--text-primary);
+}
+
 .text-pink-500 {
   --tw-text-opacity: 1;
   color: rgb(236 72 153 / var(--tw-text-opacity));
@@ -2304,6 +2318,11 @@ video {
 
 .shadow-secondary {
   --tw-shadow-color: var(--secondary);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-\[rgba\(255\2c 255\2c 255\2c 0\.5\)\] {
+  --tw-shadow-color: rgba(255,255,255,0.5);
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -2665,6 +2684,10 @@ a {
   margin-right: 6px;
 }
 
+#tsparticles canvas {
+  position: relative !important;
+}
+
 .hover\:border-gray-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
@@ -2944,12 +2967,6 @@ a {
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
-  .sm\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-x-reverse: 0;
-    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
   .sm\:p-8 {
     padding: 2rem;
   }
@@ -3002,6 +3019,10 @@ a {
 }
 
 @media (min-width: 768px) {
+  .md\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
   .md\:block {
     display: block;
   }
@@ -3074,18 +3095,8 @@ a {
     border-top-width: 12px;
   }
 
-  .md\:bg-gradient-to-r {
-    background-image: linear-gradient(to right, var(--tw-gradient-stops));
-  }
-
   .md\:bg-gradient-to-b {
     background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-  }
-
-  .md\:from-secondary {
-    --tw-gradient-from: var(--secondary);
-    --tw-gradient-to: rgb(255 255 255 / 0);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
   .md\:from-gray-100 {
@@ -3094,17 +3105,8 @@ a {
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
 
-  .md\:to-primary {
-    --tw-gradient-to: var(--primary);
-  }
-
   .md\:to-white {
     --tw-gradient-to: #fff;
-  }
-
-  .md\:bg-clip-text {
-    -webkit-background-clip: text;
-            background-clip: text;
   }
 
   .md\:px-6 {
@@ -3195,10 +3197,6 @@ a {
     font-size: 1.875rem;
     line-height: 2.25rem;
   }
-
-  .md\:text-transparent {
-    color: transparent;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -3266,11 +3264,6 @@ a {
   .lg\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .lg\:text-5xl {

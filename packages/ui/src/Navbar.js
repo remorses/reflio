@@ -1,38 +1,39 @@
 import { useState } from 'react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Logo } from './Icons/Logo';
+import { Logo } from '@/components/Icons/Logo';
 import { useUser } from '@/utils/useUser';
 import Link from 'next/link';
-import { Button } from './Button'; 
-import { Github } from './Icons/Github'; 
+import { Button } from '@/components/Button'; 
+import { Github } from '@/components/Icons/Github'; 
+import { useRouter } from 'next/router';
 
 export const Navbar = () => {
-
   const { user } = useUser();
   const [active, setActive] = useState(false);
-  const navClass = 'lg:text-lg font-medium hover:underline mx-3';
+  const router = useRouter();
+  const navClass = `text-xl font-medium hover:underline mx-3 ${router?.pathname === '/' && 'text-white'}`;
 
   return (
     <>
-      {/* <div className="bg-gradient-to-r from-secondary to-secondary-2 py-4">
-        <div className="wrapper text-center">
-          <p className="text-lg text-white font-semibold">📢&nbsp;We're currently in public beta!</p>
-        </div>
-      </div> */}
-      <div className="bg-gray-50 sticky top-0 z-50 border-b-2 border-gray-200">
-        <div className="py-2.5 wrapper">
+      <div className={`${router?.pathname === '/' ? 'bg-secondary-3' : 'bg-white border-b-4 border-gray-200'} sticky top-0 z-50`}>
+        <div className="py-6 wrapper">
           <div className="flex justify-between">
-            <div className="flex">
+            <div className="flex justify-start">
               <div className="flex-shrink-0 flex items-center mr-4">
                 <Link
                   href="/"
                 >
-                  <Logo className="h-8 md:h-12 w-auto"/>
+                  {
+                    router?.pathname === '/' ?
+                      <Logo white className="h-10 md:h-12 w-auto"/>
+                    :
+                      <Logo className="h-10 md:h-12 w-auto"/>
+                  }
                 </Link>
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center">
+            <div className="hidden lg:flex items-center justify-center">
               <nav className="flex items-center justify-center">
                 <a
                   href="/#features"
@@ -68,14 +69,14 @@ export const Navbar = () => {
             >
               {
                 active ?
-                  <XIcon className="w-8 h-auto"/>
-                : <MenuIcon className="w-8 h-auto"/>
+                  <XIcon className={`w-8 h-auto ${router?.pathname === '/' && 'text-white'}`}/>
+                : <MenuIcon className={`w-8 h-auto ${router?.pathname === '/' && 'text-white'}`}/>
               }
             </button>
 
             {
               active &&
-              <div className="origin-top-right absolute left-0 top-auto overflow-hidden mt-10 w-full shadow-xl border-t-4 border-gray-200 bg-white z-50">
+              <div className="lg:hidden origin-top-right absolute left-0 top-auto overflow-hidden mt-12 md:mt-14 w-full shadow-xl border-t-4 border-gray-200 bg-white z-50">
                 <a onClick={e=>{setActive(false)}} className="block p-5 text-md bg:text-white hover:bg-gray-100 border-b-2 border-gray-200" href="/#features">Features</a>
                 <a onClick={e=>{setActive(false)}} className="block p-5 text-md bg:text-white hover:bg-gray-100 border-b-2 border-gray-200" href="/pricing">Pricing</a>
                 <a onClick={e=>{setActive(false)}} className="block p-5 text-md bg:text-white hover:bg-gray-100 border-b-2 border-gray-200" href="/resources">Docs & Guides</a>
@@ -88,9 +89,9 @@ export const Navbar = () => {
               </div>
             }
 
-            <div className="hidden lg:flex items-center">
-              <a className="mr-3"href="https://github.com/Reflio-com/reflio" target="_blank" rel="noreferrer">
-                <Github className="w-auto h-6"/>
+            <div className="hidden lg:flex items-center justify-end">
+              <a className="mr-1"href="https://github.com/Reflio-com/reflio" target="_blank" rel="noreferrer">
+                <Github className={`w-auto h-6 ${router?.pathname === '/' && 'text-white'}`}/>
               </a>
               {
                 user ?
@@ -107,7 +108,7 @@ export const Navbar = () => {
                   <div className="flex-shrink-0">
                     <a
                       href="/signin"
-                      className={navClass + ' mr-6'}
+                      className={navClass + ' mr-4'}
                     >
                       Sign In
                     </a>

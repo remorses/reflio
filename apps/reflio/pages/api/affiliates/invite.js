@@ -6,10 +6,10 @@ import { withSentry } from '@sentry/nextjs';
 const inviteUser = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.headers.token;
-    const { companyId, companyName, campaignId, emailInvites, logoUrl, emailSubject, emailContent } = req.body;
+    const { companyId, teamId, campaignId, emailInvites, emailSubject, emailContent } = req.body;
     
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
       let emailInvitesSplit = null;
 
       if(emailInvites && emailInvites?.includes(',')){

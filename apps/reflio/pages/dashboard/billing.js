@@ -23,7 +23,8 @@ export default function BillingPage() {
     setLoading(true);
     const { url, error } = await postData({
       url: '/api/create-portal-link',
-      token: session.access_token
+      token: session.access_token,
+      data: { teamId: team?.team_id }
     });
     if (error) return alert(error.message);
     window.location.assign(url);
@@ -39,7 +40,8 @@ export default function BillingPage() {
         url: '/api/team/invoice',
         data: { 
           commissions: commissions,
-          currency: activeCompany?.company_currency
+          currency: activeCompany?.company_currency,
+          teamId: team?.team_id
         },
         token: session.access_token
       });

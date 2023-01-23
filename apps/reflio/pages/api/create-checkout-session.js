@@ -7,10 +7,10 @@ import { withSentry } from '@sentry/nextjs';
 const createCheckoutSession = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.headers.token;
-    const { price, quantity = 1, metadata = {} } = req.body;
+    const { price, teamId, quantity = 1, metadata = {} } = req.body;
 
     try {
-      const user = await getUser(token);
+      const user = await getUser(token, teamId);
       const customer = await createOrRetrieveCustomer({
         id: user.id,
         teamId: user.team_id,

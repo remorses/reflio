@@ -576,7 +576,6 @@ export const billingUsageDetails = async (teamId) => {
       .from('commissions')
       .select('*', { count: 'exact' })
       .eq('team_id', teamId);
-      
   
     return {
       "companies": companyData?.count,

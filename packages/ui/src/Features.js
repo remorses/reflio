@@ -4,8 +4,7 @@ import {
   SparklesIcon,
   CurrencyDollarIcon,
   GlobeIcon,
-  CreditCardIcon,
-  EyeIcon
+  CreditCardIcon
 } from '@heroicons/react/outline';
 
 export const Features = () => {

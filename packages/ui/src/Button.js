@@ -13,7 +13,7 @@ export const Button = (props) => {
   } else if(props.medium){
     styles = styles + ' px-6 py-3 text-sm md:text-lg'
   } else if(props.xlarge){
-    styles = styles + ' px-8 py-4 text-sm md:text-2xl'
+    styles = styles + ' px-8 py-4 text-base md:text-2xl'
   } else {
     styles = styles + ' px-8 py-3 text-sm md:text-xl'
   }

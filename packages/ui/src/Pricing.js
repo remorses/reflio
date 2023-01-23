@@ -8,7 +8,7 @@ import PricingFeatures from '@/components/PricingFeatures';
 
 export const Pricing = ({ products }) => {
   const router = useRouter();
-  const { session, planDetails } = useUser();
+  const { userDetails, session, planDetails } = useUser();
   const [priceIdLoading, setPriceIdLoading] = useState(false);
 
   const handleCheckout = async (price) => {    
@@ -21,7 +21,7 @@ export const Pricing = ({ products }) => {
     try {
       const { sessionId } = await postData({
         url: '/api/create-checkout-session',
-        data: { price },
+        data: { price: price, teamId: userDetails?.team_id },
         token: session.access_token
       });
 

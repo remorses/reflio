@@ -43,6 +43,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.1.1",
+    "react-particles": "^2.7.1",
     "react-tooltip": "^4.2.21",
     "react-use": "^17.3.2",
     "recharts": "^2.1.13",
@@ -52,6 +53,7 @@
     "swr": "0.4.0",
     "tailwind-config": "*",
     "tailwindcss": "^3.0.22",
+    "tsparticles": "^2.7.1",
     "ui": "*",
     "verify-paddle-webhook": "^1.1.0",
     "yarn": "^1.22.11"
