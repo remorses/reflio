@@ -120,7 +120,7 @@ export const CommissionsTemplate = ({ page }) => {
           if(commission?.commission_id === checkedItem){
             newCSVDownloadItems.push([ 
               commission?.affiliate?.details?.paypal_email,
-              priceStringDivided(commission?.commission_sale_value, activeCompany?.company_currency),
+              priceStringDivided(commission?.commission_total, activeCompany?.company_currency),
               commission?.commission_id,
               activeCompany?.company_currency,
               `This is a commission payment from ${activeCompany?.company_name} for commission ${commission?.commission_id}`
