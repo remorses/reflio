@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { supabaseAdmin } from '@/utils/supabase-admin';
+import { withSentry } from '@sentry/nextjs';
 
-export default async function paddleSetupHandler(req: NextApiRequest, res: NextApiResponse) {
+async function paddleSetupHandler(req: NextApiRequest, res: NextApiResponse) {
   const PaddleSDK = require('paddle-sdk');
 
   try {    
@@ -42,3 +43,5 @@ export default async function paddleSetupHandler(req: NextApiRequest, res: NextA
     return res.status(400).json({ 'message': error});
   }
 }
+
+export default process.env.SENTRY_AUTH_TOKEN ? withSentry(paddleSetupHandler) : paddleSetupHandler;

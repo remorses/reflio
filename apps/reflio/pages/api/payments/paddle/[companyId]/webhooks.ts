@@ -5,8 +5,9 @@ import {
   createPaddleCommission,
   refundCommission
 } from '@/utils/processor-helpers/paddle/paddle-helpers';
+import { withSentry } from '@sentry/nextjs';
 
-export default async function paddleWebhooksHandler(req: NextApiRequest, res: NextApiResponse) {
+async function paddleWebhooksHandler(req: NextApiRequest, res: NextApiResponse) {
   const PaddleSDK = require('paddle-sdk');
 
   try {    
@@ -111,4 +112,6 @@ export default async function paddleWebhooksHandler(req: NextApiRequest, res: Ne
     console.log(error)
     return res.status(400).json({ 'message': error});
   }
-}
+};
+
+export default process.env.SENTRY_AUTH_TOKEN ? withSentry(paddleWebhooksHandler) : paddleWebhooksHandler;
