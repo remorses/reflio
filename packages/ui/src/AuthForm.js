@@ -91,7 +91,7 @@ export const AuthForm = ({ type, campaignId, companyId, campaignHandle, affiliat
           </div>
           
         }
-        <form onSubmit={handleSignin} className="space-y-4">
+        <form onSubmit={handleSignin} className="space-y-4" data-reflio>
           <input type="hidden" name="remember" defaultValue="true" />
           <div>
             <label htmlFor="email-address" className="sr-only">

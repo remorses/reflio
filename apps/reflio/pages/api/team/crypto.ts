@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { encrypt, decrypt } from '@/utils/crypto';
-
-export default async function cryptoCall(req: NextApiRequest, res: NextApiResponse) {
+import { withSentry } from '@sentry/nextjs';
+ 
+async function cryptoCall(req: NextApiRequest, res: NextApiResponse) {
 
   try {    
     if (req.method === "POST") {
@@ -30,3 +31,5 @@ export default async function cryptoCall(req: NextApiRequest, res: NextApiRespon
     return res.status(400).json({ 'message': error});
   }
 }
+
+export default process.env.SENTRY_AUTH_TOKEN ? withSentry(cryptoCall) : cryptoCall;
