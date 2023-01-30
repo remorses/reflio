@@ -215,7 +215,7 @@ export default function BillingPage() {
                                 className="mb-2"
                                 onClick={e=>{generateInvoice()}}
                               >
-                                {invoiceLoading ? 'Generating invoice...' : 'Pay day fees'}
+                                {invoiceLoading ? 'Generating invoice...' : 'Pay Reflio fees'}
                               </Button>
                           }
                           <p>Or, <a className="underline font-bold" href="/pricing">Upgrade your plan</a> to remove all existing and future commission fees.</p>
