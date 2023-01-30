@@ -304,7 +304,7 @@ export const changeReferralCode = async (userId, affiliateId, companyId, code) =
     console.log(error)
     
     if (error) {
-      return "error";
+      return error?.message;
     } else {
       return "success";
     }

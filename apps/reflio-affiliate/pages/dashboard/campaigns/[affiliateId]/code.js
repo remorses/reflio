@@ -50,6 +50,8 @@ const AffiliateCodePage = () => {
     } else if(response === "match"){
       setErrorMessage("You already have already used this code for a different campaign with the same company. Please user a unique referral code per campaign for the same company.")
     } else {
+      console.log('Error when saving:')
+      console.error(response)
       setErrorMessage("There was an error when saving your new referral code. Please try again later.");
     }
 
