@@ -4,119 +4,115 @@ import { invoicePayment, chargePayment } from '@/utils/processor-helpers/stripe/
 import { monthsBetweenDates } from '@/utils/helpers';
 
 export const createStripeCommission = async(data, stripeId, manualReferralId) => {
-  try {    
-    let paymentData = data?.data?.object ? data?.data?.object : data?.id ? data : null;
-    let referralId = null;
-  
-    //Get customer object from payment data customer ID
-    const customer = await stripe.customers.retrieve(
-      paymentData?.customer,
+  let paymentData = data?.data?.object ? data?.data?.object : data?.id ? data : null;
+  let referralId = null;
+
+  //Get customer object from payment data customer ID
+  const customer = await stripe.customers.retrieve(
+    paymentData?.customer,
+    {stripeAccount: stripeId ? stripeId : data?.account}
+  );
+
+  //Check if customer has a referral ID
+  if(customer?.metadata?.reflio_referral_id){
+    referralId = customer?.metadata?.reflio_referral_id;
+
+    //If customer doesn't have a referral ID... check if the payment object does
+  } else if(paymentData?.metadata?.reflio_referral_id){
+    referralId = paymentData?.metadata?.reflio_referral_id;
+
+    //Update customer with referral ID
+    await stripe.customers.update(
+      customer?.id,
+      {metadata: {reflio_referral_id: paymentData?.metadata?.reflio_referral_id}},
       {stripeAccount: stripeId ? stripeId : data?.account}
     );
-  
-    //Check if customer has a referral ID
-    if(customer?.metadata?.reflio_referral_id){
-      referralId = customer?.metadata?.reflio_referral_id;
-  
-      //If customer doesn't have a referral ID... check if the payment object does
-    } else if(paymentData?.metadata?.reflio_referral_id){
-      referralId = paymentData?.metadata?.reflio_referral_id;
-  
-      //Update customer with referral ID
-      await stripe.customers.update(
-        customer?.id,
-        {metadata: {reflio_referral_id: paymentData?.metadata?.reflio_referral_id}},
-        {stripeAccount: stripeId ? stripeId : data?.account}
-      );
+  }
+
+  if(referralId === null && manualReferralId){
+    referralId = manualReferralId;
+  }
+
+  //Check if referral ID exists before continuing
+  if(referralId){
+
+    //Check if paymentIntent exists
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      paymentData?.payment_intent ? paymentData?.payment_intent : paymentData?.id,
+      {stripeAccount: stripeId ? stripeId : data?.account}
+    );
+
+    //If there's no payment intent... back out
+    if(!paymentIntent){
+      return "no_payment_intent_found";
     }
-  
-    if(referralId === null && manualReferralId){
-      referralId = manualReferralId;
+
+    //Check if payment intent already has a commission associated with it
+    if(paymentIntent?.metadata?.reflio_commission_id){
+      return "commission_exists";
     }
-  
-    //Check if referral ID exists before continuing
-    if(referralId){
-  
-      //Check if paymentIntent exists
-      const paymentIntent = await stripe.paymentIntents.retrieve(
-        paymentData?.payment_intent ? paymentData?.payment_intent : paymentData?.id,
-        {stripeAccount: stripeId ? stripeId : data?.account}
-      );
-  
-      //If there's no payment intent... back out
-      if(!paymentIntent){
-        return "no_payment_intent_found";
-      }
-  
-      //Check if payment intent already has a commission associated with it
-      if(paymentIntent?.metadata?.reflio_commission_id){
-        return "commission_exists";
-      }
+    
+    //Check if referral is valid in DB
+    let referralFromId = await supabaseAdmin
+      .from('referrals')
+      .select('*')
+      .eq('referral_id', referralId)
+      .single();
       
+    //If referral is valid, continue
+    if(referralFromId?.data !== null){
+      let continueProcess = true;
+
       //Check if referral is valid in DB
-      let referralFromId = await supabaseAdmin
-        .from('referrals')
-        .select('*')
-        .eq('referral_id', referralId)
+      let companyFromId = await supabaseAdmin
+        .from('companies')
+        .select('company_id, payment_integration_field_one')
+        .eq('company_id', referralFromId?.data?.company_id)
+        .eq('payment_integration_field_one', stripeId ? stripeId : data?.account)
         .single();
         
-      //If referral is valid, continue
-      if(referralFromId?.data !== null){
-        let continueProcess = true;
-  
-        //Check if referral is valid in DB
-        let companyFromId = await supabaseAdmin
-          .from('companies')
-          .select('company_id, payment_integration_field_one')
-          .eq('company_id', referralFromId?.data?.company_id)
-          .eq('payment_integration_field_one', stripeId)
-          .single();
-          
-        if(companyFromId?.data === null){
-          console.log('DOES NOT MATCH COMPANY!!!!!! EXITING!!!!!')
-          return "error";
-        }
-  
-        //Check if there is an earlier commission with the same referral ID... if so, check if payment limit has been reached
-        let earliestCommission = await supabaseAdmin
-          .from('commissions')
-          .select('created')
-          .eq('referral_id', referralId)
-          .order('created', { ascending: true })
-          .limit(1)
-  
-        if(earliestCommission?.data !== null){
-          let commissionFound = earliestCommission?.data[0];
-  
-          if(commissionFound?.created){
-            let stripeDateConverted = new Date(paymentData?.created * 1000);
-            let earliestCommissionDate = new Date(commissionFound?.created);
-            let monthsBetween = monthsBetweenDates(stripeDateConverted, earliestCommissionDate);
-  
-            if(referralFromId?.data?.commission_period < monthsBetween){
-              continueProcess = false;
-            }
-          }
-        }
-  
-        if(continueProcess === true){
-          
-          if(paymentIntent?.invoice){
-            await invoicePayment(referralFromId, stripeId ? stripeId : data?.account, referralId, paymentIntent, null);
-            return "success";
-      
-          } else if(paymentIntent?.charges){
-            await chargePayment(referralFromId, stripeId ? stripeId : data?.account, referralId, paymentIntent);
-            return "success";
-      
-          } else {
-            return "commission_payment_calculation_error";
+      if(companyFromId?.data === null){
+        console.log('DOES NOT MATCH COMPANY!!!!!! EXITING!!!!!')
+        return "error";
+      }
+
+      //Check if there is an earlier commission with the same referral ID... if so, check if payment limit has been reached
+      let earliestCommission = await supabaseAdmin
+        .from('commissions')
+        .select('created')
+        .eq('referral_id', referralId)
+        .order('created', { ascending: true })
+        .limit(1)
+
+      if(earliestCommission?.data !== null){
+        let commissionFound = earliestCommission?.data[0];
+
+        if(commissionFound?.created){
+          let stripeDateConverted = new Date(paymentData?.created * 1000);
+          let earliestCommissionDate = new Date(commissionFound?.created);
+          let monthsBetween = monthsBetweenDates(stripeDateConverted, earliestCommissionDate);
+
+          if(referralFromId?.data?.commission_period < monthsBetween){
+            continueProcess = false;
           }
         }
       }
+
+      if(continueProcess === true){
+        
+        if(paymentIntent?.invoice){
+          await invoicePayment(referralFromId, stripeId ? stripeId : data?.account, referralId, paymentIntent, null);
+          return "success";
+    
+        } else if(paymentIntent?.charges){
+          await chargePayment(referralFromId, stripeId ? stripeId : data?.account, referralId, paymentIntent);
+          return "success";
+    
+        } else {
+          return "commission_payment_calculation_error";
+        }
+      }
     }
-  } catch (error) {
-    throw new Error(error);
   }
 
   return "error";
