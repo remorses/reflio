@@ -1,13 +1,13 @@
 import SEOMeta from '@/templates/SEOMeta'; 
 import LoadingDots from '@/components/LoadingDots';
 
-export default function AnalyticsPage() {
+export default function AppsPage() {
   return (
     <>
-      <SEOMeta title="Analytics"/>
+      <SEOMeta title="Apps"/>
       <div className="pb-10 mb-12 border-b-4">
         <div className="pt-10 wrapper">
-          <h1 className="text-2xl sm:text-3xl tracking-tight font-extrabold">Analytics</h1>
+          <h1 className="text-2xl sm:text-3xl tracking-tight font-extrabold">Apps</h1>
         </div>
       </div>
       <div className="wrapper">
@@ -17,7 +17,7 @@ export default function AnalyticsPage() {
           <div className="flex justify-center mb-3">
             <LoadingDots/>
           </div>
-          <p className="mt-3 text-xl">Campaign analytics and funnels are coming very soon.</p>
+          <p className="mt-3 text-xl">Apps are coming very soon.</p>
         </div>
       </div>
     </>

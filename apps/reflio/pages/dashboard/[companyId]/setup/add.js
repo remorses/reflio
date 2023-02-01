@@ -65,6 +65,7 @@ export default function TrackingSetupPage() {
                 activeCompany?.payment_integration_type === 'stripe' && 
                 <p className="text-lg mt-3">Reflio will automatically add the referral ID to an existing Stripe customer with the same email address, or later if the Stripe customer is created at a different time. When the user converts to a paying customer, Reflio will automatically create a commission if there was an eligible referral ID associated with that user.</p>
               }
+              <p className="text-lg mt-4">For more detailed instructions on setting Reflio up, as well as more details on features such as Cross Sub-Domain Tracking, Auto Cookie Consent Collection, and more, visit our <a href="https://reflio.com/resources/quickstart-guide" target="_blank" className="underline font-bold">QuickStart Guide.</a></p>
             </div>
             {
               activeCompany?.payment_integration_type === 'paddle' &&

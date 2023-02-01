@@ -20,7 +20,8 @@ import {
   CurrencyDollarIcon,
   BellIcon,
   GiftIcon,
-  MailIcon
+  CollectionIcon,
+  ChipIcon
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 
@@ -30,11 +31,12 @@ export const AdminNavItems = () => {
   const router = useRouter();
 
   const manageNavigation = [
-    { name: 'Campaigns', href: `/dashboard/${activeCompany?.company_id}/campaigns`, icon: TemplateIcon },
+    // { name: 'Home', href: `/dashboard/${activeCompany?.company_id}/home`, icon: TemplateIcon },
+    { name: 'Campaigns', href: `/dashboard/${activeCompany?.company_id}/campaigns`, icon: CollectionIcon },
     { name: 'Affiliates', href: `/dashboard/${activeCompany?.company_id}/affiliates`, icon: UserGroupIcon },
-    // { name: 'Affiliate Mailer', href: `/dashboard/${activeCompany?.company_id}/affiliates/mailer`, icon: MailIcon },
     { name: 'Referrals', href: `/dashboard/${activeCompany?.company_id}/referrals`, icon: SparklesIcon },
     { name: 'Sales & Commissions', href: `/dashboard/${activeCompany?.company_id}/commissions`, icon: CurrencyDollarIcon },
+    // { name: 'Apps', href: `/dashboard/${activeCompany?.company_id}/apps`, icon: ChipIcon },
     { name: 'Analytics', href: `/dashboard/${activeCompany?.company_id}/analytics`, icon: ChartBarIcon }
   ];
 
@@ -65,7 +67,6 @@ export const AdminNavItems = () => {
       });
     }
   }, [])
-  
   
   return(
     <>

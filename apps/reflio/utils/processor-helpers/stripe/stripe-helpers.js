@@ -16,6 +16,7 @@ export const createStripeCommission = async(data, stripeId, manualReferralId) =>
   //Check if customer has a referral ID
   if(customer?.metadata?.reflio_referral_id){
     referralId = customer?.metadata?.reflio_referral_id;
+    console.log('CUSTOMER HAS REFERRAL ID: ' + referralId)
 
     //If customer doesn't have a referral ID... check if the payment object does
   } else if(paymentData?.metadata?.reflio_referral_id){
@@ -49,6 +50,7 @@ export const createStripeCommission = async(data, stripeId, manualReferralId) =>
 
     //Check if payment intent already has a commission associated with it
     if(paymentIntent?.metadata?.reflio_commission_id){
+      console.log('COMMISSION ALREADY EXISTS: ' + referralId)
       return "commission_exists";
     }
     

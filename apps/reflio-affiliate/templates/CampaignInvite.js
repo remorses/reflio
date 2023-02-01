@@ -7,6 +7,7 @@ import {
   ArrowNarrowLeftIcon
 } from '@heroicons/react/outline';
 import CampaignInvitePageBlock from '@/components/CampaignInvitePageBlock'; 
+import { Logo } from '@/components/Icons/Logo';
 
 export default function CampaignInvite({ publicCampaignData }) {
   const router = useRouter();
@@ -40,14 +41,30 @@ export default function CampaignInvite({ publicCampaignData }) {
           </div>
         }
         <div className="wrapper py-12">
-          <CampaignInvitePageBlock 
-            publicCampaignData={publicCampaignData}
-            campaignAlreadyJoined={campaignAlreadyJoined} 
-            loading={loading}
-            setLoading={setLoading}
-            user={user}
-            session={session}
-          />
+          {
+            publicCampaignData?.company_name ?
+              <CampaignInvitePageBlock 
+                publicCampaignData={publicCampaignData}
+                campaignAlreadyJoined={campaignAlreadyJoined} 
+                loading={loading}
+                setLoading={setLoading}
+                user={user}
+                session={session}
+              />
+            :
+              <div className="p-8 rounded-xl bg-white shadow-lg border-4 border-gray-200 max-w-2xl mx-auto text-center">
+                <div className="mb-4">
+                  <p className="text-5xl mb-3">🤔</p>
+                  <h1 className="text-3xl mb-2">Sorry, this campaign could not be found</h1>
+                  <p className="text-xl">Please <a href="#" className="underline font-bold">let us know</a> if you were expecting something else.</p>
+                </div>
+                <div className="border-t-4 mt-10 pt-8">
+                  <a href={`${process.env.NEXT_PUBLIC_SITE_URL}?ref=CampaignNotFound`}>
+                    <Logo className="w-36 h-auto mx-auto"/>
+                  </a>
+                </div>
+              </div>
+          }
         </div>
       </div>
     </>

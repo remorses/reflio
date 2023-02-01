@@ -46,7 +46,7 @@ const AffiliateCodePage = () => {
 
     if(response === "success"){
       setErrorMessage(null);
-      router.replace(`/dashboard/campaigns`);
+      window.location.href = '/dashboard/campaigns';
     } else if(response === "match"){
       setErrorMessage("You already have already used this code for a different campaign with the same company. Please user a unique referral code per campaign for the same company.")
     } else {

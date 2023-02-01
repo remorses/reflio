@@ -44,7 +44,8 @@ export default function CampaignCustomizerPage() {
     } else {
       setCampaignEditData({
         "campaign_welcome_message": `Join ${activeCampaign?.campaign_name} and get ${activeCampaign?.commission_type === 'percentage' ? activeCampaign?.commission_value + '% commission on all paid referrals.' : activeCampaign?.company_currency + '' + activeCampaign?.commission_value + 'commission on all paid referrals.'}`,
-        "campaign_bg_color": null
+        "campaign_bg_color": null,
+        "random_number": Math.random(1000)
       })
     }
   }
@@ -185,7 +186,9 @@ export default function CampaignCustomizerPage() {
           </div>
           <div className="bg-white flex flex-grow items-center justify-center p-8 overflow-y-scroll">
             <div className="rounded-xl p-8 shadow-xl border-4 border-gray-200 w-full h-full pointer-events-none cursor-not-allowed">
-              <CampaignInvitePageBlock publicCampaignData={mergedCampaignData} editor={true} editorData={campaignEditData}/>
+              {
+                <CampaignInvitePageBlock publicCampaignData={mergedCampaignData} editor={true} editorData={campaignEditData}/>
+              }
             </div>
           </div>
         </div>

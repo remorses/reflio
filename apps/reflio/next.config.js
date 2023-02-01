@@ -1,7 +1,5 @@
 require("dotenv").config({ path: "../../.env" });
 
-const withTM = require("next-transpile-modules")(["ui"]);
-
 if(process.env.SENTRY_AUTH_TOKEN){
   const { withSentryConfig } = require('@sentry/nextjs');
   
@@ -10,16 +8,18 @@ if(process.env.SENTRY_AUTH_TOKEN){
     silent: true
   };
   
-  module.exports = withTM(withSentryConfig({
+  module.exports = withSentryConfig({
+    transpilePackages: ['ui'],
     images: {
       domains: ['s2.googleusercontent.com'],
     },
     sentryWebpackPluginOptions
-  }));
+  });
 } else {
-  module.exports = withTM({
+  module.exports = {
+    transpilePackages: ['ui'],
     images: {
       domains: ['s2.googleusercontent.com'],
     }
-  });
+  };
 }

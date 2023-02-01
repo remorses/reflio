@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router';
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { getAffiliates, useUser } from './useUser';
-import { useCompany } from './CompanyContext';
-import { useCampaign } from './CampaignContext';
+import { useCompany } from '@/utils/CompanyContext';
+import { useCampaign } from '@/utils/CampaignContext';
 
-export const AffiliateContext = createContext();
-
-export const AffiliateContextProvider = (props) => {
+export const useAffiliate = (props) => {
   const { user, userFinderLoaded } = useUser();
   const { activeCompany } = useCompany();
   const { userCampaignDetails } = useCampaign();
@@ -20,7 +17,7 @@ export const AffiliateContextProvider = (props) => {
         setUserAffiliateDetails(Array.isArray(results) ? results : [results])
       });
     }
-  });
+  }, [userFinderLoaded, getAffiliates, user, userAffiliateDetails, activeCompany]);
 
   if(mergedAffiliateDetails === null && userCampaignDetails !== null && userCampaignDetails?.length && userAffiliateDetails !== null && userAffiliateDetails?.length && activeCompany?.company_id ){
     let clonedAffiliateDetails = userAffiliateDetails;
@@ -45,13 +42,5 @@ export const AffiliateContextProvider = (props) => {
     mergedAffiliateDetails
   };
 
-  return <AffiliateContext.Provider value={value} {...props}  />;
+  return value;
 }
-
-export const useAffiliate = () => {
-  const context = useContext(AffiliateContext);
-  if (context === undefined) {
-    throw new Error(`useUser must be used within a AffiliatesContextProvider.`);
-  }
-  return context;
-};

@@ -2,7 +2,7 @@ import { supabaseAdmin } from '@/utils/supabase-admin';
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
-  runtime: 'edge',
+  runtime: 'nodejs',
 };
 
 //Get public campaigns
@@ -60,7 +60,12 @@ const getPublicCampaign = async (handle: any, campaignId: any) => {
   return campaignDetails;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+interface Data {
+  campaign?: any;
+  error?: any;
+}
+
+export default async function campaignHandler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     const { companyHandle, campaignId } = req.body;
 
@@ -71,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     } catch (err: any) {
       console.log(err);
-      return res.status(500).json({ error: { statusCode: 500, message: err.message } });
+      return res.status(500).json({ campaign: null });
     }
   } else {
     res.setHeader('Allow', 'POST');

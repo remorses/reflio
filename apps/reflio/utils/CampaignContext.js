@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { getCampaigns, useUser } from './useUser';
 import { useCompany } from './CompanyContext';
 
-export const CampaignContext = createContext();
-
-export const CampaignContextProvider = (props) => {
+export const useCampaign = () => {
   const { user, userFinderLoaded } = useUser();
   const { activeCompany } = useCompany();
   const [userCampaignDetails, setUserCampaignDetails] = useState(null);
@@ -16,6 +14,7 @@ export const CampaignContextProvider = (props) => {
   useEffect(() => {
     if (userFinderLoaded && getCampaigns && user && userCampaignDetails === null && activeCompany?.company_id) {
       getCampaigns(activeCompany?.company_id).then(results => {
+        console.log('running!!!')
         setUserCampaignDetails(Array.isArray(results) ? results : [results])
 
         let newActiveCampaign = null;
@@ -34,20 +33,12 @@ export const CampaignContextProvider = (props) => {
         }
       });
     }
-  });
+  }, [userFinderLoaded, getCampaigns, user, userCampaignDetails, activeCompany, activeCampaign, router?.query?.campaignId]);
     
   value = {
     activeCampaign,
     userCampaignDetails
   };
 
-  return <CampaignContext.Provider value={value} {...props}  />;
+  return value;
 }
-
-export const useCampaign = () => {
-  const context = useContext(CampaignContext);
-  if (context === undefined) {
-    throw new Error(`useUser must be used within a CampaignsContextProvider.`);
-  }
-  return context;
-};

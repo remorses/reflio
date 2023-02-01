@@ -9,7 +9,8 @@ import {
   UserGroupIcon,
   CurrencyDollarIcon,
   TemplateIcon,
-  SparklesIcon
+  SparklesIcon,
+  SearchIcon
 } from '@heroicons/react/outline';
 
 export const AdminNavItems = () => {
@@ -22,6 +23,7 @@ export const AdminNavItems = () => {
     { name: 'Referrals', href: `/dashboard/referrals`, icon: SparklesIcon },
     { name: 'Commissions', href: `/dashboard/commissions`, icon: CurrencyDollarIcon },
     // { name: 'Campaign Finder', href: `/dashboard/campaigns/finder`, icon: SearchIcon },
+    { name: 'Campaign Finder', href: `/dashboard/campaign-finder`, icon: SearchIcon },
     { name: 'Settings', href: `/dashboard/settings`, icon: CogIcon }
   ];
 
