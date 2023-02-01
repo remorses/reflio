@@ -9,11 +9,11 @@ if(process.env.SENTRY_AUTH_TOKEN){
   };
   
   module.exports = withSentryConfig({
+    sentryWebpackPluginOptions,
     transpilePackages: ['ui'],
     images: {
       domains: ['s2.googleusercontent.com'],
-    },
-    sentryWebpackPluginOptions
+    }
   });
 } else {
   module.exports = {
