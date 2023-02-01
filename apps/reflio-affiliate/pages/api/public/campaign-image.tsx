@@ -3,7 +3,7 @@ import { postData, priceString } from '@/utils/helpers';
 import { NextRequest } from 'next/server';
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 };
 
 const ogImageGenerate = async (companyHandle: any, campaignId: any) => {
