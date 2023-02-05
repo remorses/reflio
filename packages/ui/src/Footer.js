@@ -1,5 +1,6 @@
 import { Logo } from '@/components/Icons/Logo';
-import { Github } from '@/components/Icons/Github'; 
+import { Github } from '@/components/Icons/Github';
+import { Twitter } from '@/components/Icons/Twitter'; 
 
 export const Footer = () => {
   return (
@@ -25,13 +26,16 @@ export const Footer = () => {
           </div>
         </div>
         <div className="mt-6">
-          <p className="text-gray-500 text-sm">&copy; 2022 Reflio (McIlroy Limited).</p>
-          <div className="flex items-center justify-center mt-2">
+          <div className="flex items-center justify-center mb-6 space-x-4">
+            <a href="https://twitter.com/useReflio" target="_blank" rel="noreferrer">
+              <Twitter className="h-5 w-auto"/>
+            </a>
             <a href="https://github.com/Reflio-com/reflio" target="_blank" rel="noreferrer">
               <Github className="h-5 w-auto"/>
             </a>
             {/* <a href="/terms" className="hover:underline text-xs mx-1 text-gray-500 hover:text-gray-400">Terms</a> */}
           </div>
+          <p className="text-gray-500 text-sm">&copy; 2022 Reflio (McIlroy Limited).</p>
         </div>
       </div>
     </footer>

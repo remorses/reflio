@@ -35,8 +35,8 @@ export default function Index() {
 
   return(
     <>
-      <div id="#intro">
-        <div className="relative py-10 md:py-24 bg-gradient-to-b from-secondary-3 via-secondary-2 to-primary">
+      <div id="#intro" className="relative -mt-24">
+        <div className="relative pb-24 pt-32 lg:pt-48 bg-gradient-to-b from-secondary-3 via-secondary-2 to-primary">
           <div className="wrapper text-center">
             <div className="max-w-5xl mx-auto">
               <div className="mb-10">
@@ -46,7 +46,7 @@ export default function Index() {
                   </h1>
                 </div>
                 <p className="text-xl sm:text-3xl font-light animate-fadeinslow text-white">
-                  Reflio puts <span className="font-medium underline">digital privacy first</span> and is <a href="https://github.com/Reflio-com/reflio" className="font-medium underline">proudly open-source.</a> All referrals are processed through <span className="font-medium underline">European-owned infrastructure</span>.
+                  Reflio puts <span className="font-medium underline">digital privacy first</span> and is <a href="https://github.com/Reflio-com/reflio" className="font-medium underline" target="_blank" rel="noreferrer">proudly open-source.</a> All referrals are processed through <span className="font-medium underline">European-owned infrastructure</span>. Stripe and Paddle integrations supported.
                 </p>
               </div>
               <div className="mt-10 animate-fadeinslow">
@@ -85,6 +85,33 @@ export default function Index() {
               </div>
             </div>
           </div>
+          <div
+            className="absolute w-full hidden md:block overflow-hidden select-none pointer-events-none"
+            style={{ right: "0", top: "0", height: 900, zIndex: '10000000' }}
+          >
+            <div
+              className="absolute inset-0 select-none pointer-events-none"
+              style={{
+                backgroundImage:
+                  "conic-gradient( from 110deg at 90% -100%, #0000 80deg, #ffffff18 84deg, #ffffff1a 85deg, #ffffff19 86deg, #ffffff19 87deg, #ffffff2c 90deg, #ffffff2c 91deg, #ffffff24 93deg, #ffffff25 95deg, #ffffff23 97deg, #0000 100deg )",
+                maskImage: "linear-gradient(to bottom, #fff 50%, transparent)",
+                WebkitMaskImage: "linear-gradient( to bottom, #fff 50%, transparent )",
+                zIndex: '10000'
+              }}
+            >
+              <div
+                id="dust-canvas-wrapper"
+                className="absolute inset-0"
+                style={{
+                  maskImage:
+                    "conic-gradient( from 110deg at 90% -100%, #0000 65deg, #ffffff18 84deg, #ffffff1a 85deg, #ffffff19 86deg, #ffffff19 87deg, #ffffff2c 90deg, #ffffff2c 91deg, #ffffff24 93deg, #ffffff25 95deg, #ffffff23 97deg, #0000 115deg )",
+                  WebkitMaskImage:
+                    "conic-gradient( from 110deg at 90% -100%, #0000 65deg, #ffffff18 84deg, #ffffff1a 85deg, #ffffff19 86deg, #ffffff19 87deg, #ffffff2c 90deg, #ffffff2c 91deg, #ffffff24 93deg, #ffffff25 95deg, #ffffff23 97deg, #0000 115deg )",
+                    zIndex: '10000'
+                }}
+              ></div>
+            </div>
+          </div>
           <div className="absolute z-0 pointer-events-none top-0 left-0 w-full h-full overflow-hidden animate-fadeinslow z-0">
             <Particles
               className="relative w-full h-full"
@@ -117,13 +144,13 @@ export default function Index() {
                       default: 'destroy'
                     },
                     random: false,
-                    speed: 0.5,
+                    speed: 0.7,
                     straight: true
                   },
                   number: {
                     density: {
                       enable: true,
-                      area: 400
+                      area: 450
                     },
                     value: 150
                   },

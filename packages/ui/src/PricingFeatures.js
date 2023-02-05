@@ -48,7 +48,7 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       },
       {
-        text: 'Stripe auto sync',
+        text: 'Stripe / Paddle Auto Sync',
         type: 'eligible'
       },
       {
@@ -86,7 +86,7 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       },
       {
-        text: 'Stripe auto sync',
+        text: 'Stripe / Paddle Auto Sync',
         type: 'eligible'
       },
       {
@@ -128,7 +128,7 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       },
       {
-        text: 'Stripe auto sync',
+        text: 'Stripe / Paddle Auto Sync',
         type: 'eligible'
       },
       {
@@ -166,7 +166,7 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       },
       {
-        text: 'Stripe auto sync',
+        text: 'Stripe / Paddle Auto Sync',
         type: 'eligible'
       },
       {

@@ -514,18 +514,20 @@ if(Reflio.cookieExists() === true){
   Reflio.consentCleanup();
 }
 
-//If data-reflio form exists, add referral id to the form.
-if(document.querySelector('form[data-reflio]') && Reflio.checkCookie() !== null){
-  const reflioForms = document.querySelectorAll('form[data-reflio]');
-  reflioForms.forEach((form) => {
-    let newReferralInput = document.createElement('input');
-    newReferralInput.type = 'hidden';
-    newReferralInput.name = 'reflio_referral_id';
-    newReferralInput.id = 'reflio_referral_id';
-    newReferralInput.value = Reflio.checkCookie().referral_id;
-    form.appendChild(newReferralInput);
-  });
-}
+window.addEventListener('load', function () {
+  //If data-reflio form exists, add referral id to the form.
+  if(document.querySelector('form[data-reflio]') && Reflio.checkCookie() !== null){
+    const reflioForms = document.querySelectorAll('form[data-reflio]');
+    reflioForms.forEach((form) => {
+      let newReferralInput = document.createElement('input');
+      newReferralInput.type = 'hidden';
+      newReferralInput.name = 'reflio_referral_id';
+      newReferralInput.id = 'reflio_referral_id';
+      newReferralInput.value = Reflio.checkCookie().referral_id;
+      form.appendChild(newReferralInput);
+    });
+  }
+});
 
 if(!reflioInnerScript) {
   console.error("Could not load Reflio: make sure the <script> tag includes data-reflio='<companyId>'")

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Logo } from '@/components/Icons/Logo';
 import { useUser } from '@/utils/useUser';
@@ -10,12 +10,24 @@ import { useRouter } from 'next/router';
 export const Navbar = () => {
   const { user } = useUser();
   const [active, setActive] = useState(false);
+  const [scroll, setScroll] = useState(false);
   const router = useRouter();
   const navClass = `text-xl font-medium hover:underline mx-3 ${router?.pathname === '/' && 'text-white'}`;
 
+  if(router.asPath === '/'){
+    useEffect(() => {
+      window.addEventListener("scroll", () => {
+        setScroll(window.scrollY > 50);
+      });
+      if(window.scrollY > 50 && scroll === false){
+        setScroll(true);
+      }
+    }, []);
+  }
+
   return (
     <>
-      <div className={`${router?.pathname === '/' ? 'bg-secondary-3' : 'bg-white border-b-4 border-gray-200'} sticky top-0 z-50`}>
+      <div className={`${router?.pathname === '/' ? scroll ? 'bg-secondary-3' : 'bg-transparent' : 'bg-white border-b-4 border-gray-200'} sticky top-0 z-40 transition-background ease-in-out duration-300`}>
         <div className="py-6 wrapper">
           <div className="flex justify-between">
             <div className="flex justify-start">
