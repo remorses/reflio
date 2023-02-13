@@ -70,14 +70,23 @@ const CampaignsList = (props) => {
                                       <button className="font-semibold underline text-gray-800" href={`https://${campaign?.company_url}?via=${campaign?.referral_code ? campaign?.referral_code : campaign?.affiliate_id}`}>{`https://${campaign?.company_url}?via=${campaign?.referral_code ? campaign?.referral_code : campaign?.affiliate_id}`}</button>
                                     </CopyToClipboard>
                                   </p>
-                                  <Button
-                                    primary
-                                    small
-                                    href={`/dashboard/campaigns/${campaign?.affiliate_id}/code`}
-                                    className="mt-4"
-                                  >
-                                    Edit referral code
-                                  </Button>
+                                  <div className="mt-4">
+                                    <Button
+                                      primary
+                                      small
+                                      href={`/dashboard/campaigns/${campaign?.affiliate_id}/code`}
+                                    >
+                                      Edit referral code
+                                    </Button>
+                                    <Button
+                                      gray
+                                      small
+                                      href={`/dashboard/campaigns/${campaign?.affiliate_id}/assets`}
+                                      className="ml-2"
+                                    >
+                                      View company assets
+                                    </Button>
+                                  </div>
                                 </div> 
                                 <p className="text-gray-700 bg-gray-100 border-2 border-gray-200 p-3 rounded-xl mt-4 break-all text-sm">Tip: You can link to any page, just add <span className="font-bold text-secondary-2">?via={campaign?.referral_code ? campaign?.referral_code : campaign?.affiliate_id}</span> to the end of the URL to track your referral.</p>
                               </td>

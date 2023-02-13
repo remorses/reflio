@@ -12,7 +12,7 @@ export const Features = () => {
   const features = [
     {
       name: 'Pricing from $0/month',
-      description: "We're indie hacker friendly. Being indie hackers ourselves, we know that all new projects start from $0 MRR. Reflio starts from just $0/month with a 9% fee per successful referral.",
+      description: "We're indie hacker friendly. Being indie hackers ourselves, we know that all new projects start from $0 MRR. Reflio starts from just $0/month with a 9% fee per successful referral commission.",
       active: true,
       icon: CurrencyDollarIcon
     },

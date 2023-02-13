@@ -42,6 +42,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
+    "react-drag-drop-files": "^2.3.8",
     "react-hot-toast": "^2.1.1",
     "react-particles": "^2.7.1",
     "react-tooltip": "^4.2.21",

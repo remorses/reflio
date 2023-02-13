@@ -68,6 +68,10 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'ineligible'
       },    
       {
+        text: 'Share assets with your afffiliates',
+        type: 'ineligible'
+      },    
+      {
         text: 'Invite team members',
         type: 'ineligible'
       }
@@ -103,6 +107,10 @@ export const PricingFeatures = ({ productName, normal }) => {
       },
       {
         text: 'Campaign and affiliate analytics',
+        type: 'eligible'
+      },    
+      {
+        text: 'Share assets with your afffiliates',
         type: 'eligible'
       },    
       {
@@ -144,6 +152,10 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       },
       {
+        text: 'Share assets with your afffiliates',
+        type: 'eligible'
+      },    
+      {
         text: 'Live chat & email support',
         type: 'eligible'
       }
@@ -181,6 +193,10 @@ export const PricingFeatures = ({ productName, normal }) => {
         text: 'PayPal Mass Payouts',
         type: 'eligible'
       },
+      {
+        text: 'Share assets with your afffiliates',
+        type: 'eligible'
+      },    
       {
         text: 'Priority live chat & email support',
         type: 'eligible'

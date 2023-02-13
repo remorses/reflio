@@ -225,7 +225,7 @@ export const CommissionsTemplate = ({ page }) => {
                       <div className="flex items-center">
                         <ExclamationIcon className="h-6 w-auto text-white" aria-hidden="true" />
                         <span className="font-semibold text-base text-white ml-2 mb-1">
-                          You have {commissions?.data?.filter(commission => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length} sales with due commissions
+                          You have {commissions?.data?.filter(commission => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length} sales with due commissions. Click here to manage them.
                         </span>
                       </div>
                     </a>

@@ -3,10 +3,10 @@ import { supabaseAdmin } from './supabase-admin';
 //Get user campaigns
 export const getAffiliatePrograms = async (userId) => {
   const { data, error } = await supabaseAdmin
-  .from('affiliates')
-  .select('*')
-  .eq('invited_user_id', userId)
-  .eq('accepted', true)
+    .from('affiliates')
+    .select('*')
+    .eq('invited_user_id', userId)
+    .eq('accepted', true)
 
   if(error){
     return [];
@@ -320,6 +320,7 @@ export const getAffiliateCommissions = async (userId) => {
         .select('*')
         .eq('affiliate_id', item?.affiliate_id)
         .order('created', { ascending: false })
+        .gt('commission_sale_value', 0)
 
       if(data){
         data?.map((commission) => {
@@ -348,4 +349,43 @@ export const getAffiliateCommissions = async (userId) => {
   }
 
   return { commissionsData };
+};
+
+//Get campaign assets
+export const getCompanyAssets = async (userId, affiliateId, companyId) => {
+  const { data, error } = await supabaseAdmin
+    .from('affiliates')
+    .select('*')
+    .eq('invited_user_id', userId)
+    .eq('company_id', companyId)
+    .eq('affiliate_id', affiliateId)
+    .eq('accepted', true)
+
+  if(error){
+    return [];
+  }
+
+  let affilateData = data[0];
+
+  console.log('affilateData:')
+  console.log(affilateData)
+
+  if(affilateData){
+    let companyAssets = await supabaseAdmin
+      .from('assets')
+      .select('*')
+      .eq('company_id', affilateData?.company_id)
+      
+    if(companyAssets?.data !== null && companyAssets?.data?.length > 0){
+      let updatedAssets = companyAssets?.data;
+      await Promise.all(updatedAssets?.map(async (file) => {
+        const signedUrl = await supabaseAdmin.storage.from(`/`).createSignedUrl(file?.file_name, 120);
+        file.signed_url = signedUrl?.signedURL;
+      }));
+      return updatedAssets;
+    }
+
+  }
+
+  return [];
 };

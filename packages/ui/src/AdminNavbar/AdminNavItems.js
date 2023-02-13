@@ -21,7 +21,8 @@ import {
   BellIcon,
   GiftIcon,
   CollectionIcon,
-  ChipIcon
+  ChipIcon,
+  CloudDownloadIcon
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 
@@ -37,16 +38,17 @@ export const AdminNavItems = () => {
     { name: 'Referrals', href: `/dashboard/${activeCompany?.company_id}/referrals`, icon: SparklesIcon },
     { name: 'Sales & Commissions', href: `/dashboard/${activeCompany?.company_id}/commissions`, icon: CurrencyDollarIcon },
     // { name: 'Apps', href: `/dashboard/${activeCompany?.company_id}/apps`, icon: ChipIcon },
-    { name: 'Analytics', href: `/dashboard/${activeCompany?.company_id}/analytics`, icon: ChartBarIcon }
+    { name: 'Assets', href: `/dashboard/${activeCompany?.company_id}/assets`, icon: CloudDownloadIcon },
+    { name: 'Analytics', href: `/dashboard/${activeCompany?.company_id}/analytics`, icon: ChartBarIcon },
+    { name: 'Company', href: `/dashboard/${activeCompany?.company_id}/settings`, icon: CogIcon }
   ];
 
   const settingsNavigation = [
     { name: 'Setup', href: `/dashboard/${activeCompany?.company_id}/setup`, icon: ClipboardCheckIcon },
-    { name: 'Company Settings', href: `/dashboard/${activeCompany?.company_id}/settings`, icon: CogIcon },
     { name: 'Billing / Plans', href: `/dashboard/billing`, icon: CreditCardIcon }
   ];
 
-  const navItemClass = 'flex items-center py-1.5 px-2 my-0.5 text-base font-semibold rounded-lg hover:bg-gray-300';
+  const navItemClass = 'flex items-center py-1 px-2 my-0.5 text-[15px] font-semibold rounded-lg hover:bg-gray-300';
 
   const handleCompanySwitch = async (companyId) => {
     if(!companyId) return false;
@@ -151,7 +153,7 @@ export const AdminNavItems = () => {
           </Listbox>
         </div>
         <div className="px-5 py-2">
-          <p className="px-2 uppercase text-xs font-semibold text-gray-500 tracking-wide mb-2">Manage</p>
+          <p className="px-2 uppercase text-sm font-semibold text-gray-500 tracking-wide mb-2">Manage</p>
           {manageNavigation.map((item) => (
             <Link
               passHref
@@ -169,7 +171,7 @@ export const AdminNavItems = () => {
           ))}
         </div>
         <div className="px-5 py-2">
-          <p className="px-2 uppercase text-xs font-semibold text-gray-500 tracking-wide mb-2">Settings</p>
+          <p className="px-2 uppercase text-sm font-semibold text-gray-500 tracking-wide mb-2">Settings</p>
           {settingsNavigation.map((item) => (
             <Link
               passHref
@@ -187,7 +189,7 @@ export const AdminNavItems = () => {
           ))}
         </div>
         <div className="px-5 py-2">
-          <p className="px-2 uppercase text-xs font-semibold text-gray-500 tracking-wide mb-2">Resources</p>
+          <p className="px-2 uppercase text-sm font-semibold text-gray-500 tracking-wide mb-2">Resources</p>
           {
             planDetails === "free" &&
             <Link

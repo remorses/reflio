@@ -43,6 +43,7 @@ export const Button = (props) => {
         className={`${styles} ${props.className ? props.className : ''}`}
         onClick={props.onClick && props.onClick}
         target={props.external ? '_blank' : ''}
+        download={props.download && props.download}
       >
         {props.children && props.children}
       </Link>

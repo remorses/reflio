@@ -3,6 +3,7 @@ import { uploadLogoImage } from '@/utils/useUser';
 import { useRouter } from 'next/router';
 import { useCompany } from '@/utils/CompanyContext';
 import toast from 'react-hot-toast';
+import Button from '@/components/Button';
 
 export const CompanyLogoUpload = () => {
   const router = useRouter();
@@ -51,13 +52,13 @@ export const CompanyLogoUpload = () => {
             multiple={false}
             ref={fileInput}
           />
-          <button 
-            type="button"
-            className="bg-white py-3 px-5 border border-gray-300 rounded-md shadow-sm text-base leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
+          <Button 
+            primary
+            small
             onClick={() => handleFileClick()}
           >
             Upload File
-          </button>
+          </Button>
         </div>
         <p className="mt-2 text-sm text-gray-500">
           Must be a PNG or JPEG file and less than 2mb.

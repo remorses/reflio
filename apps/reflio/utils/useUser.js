@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, useContext } from 'react';
-import { supabase } from './supabase-client';
+import { supabase } from '@/utils/supabase-client';
 import { slugifyString, LogSnagPost, postData } from '@/utils/helpers';
 
 export const UserContext = createContext();
@@ -253,6 +253,8 @@ export const getSales = async (companyId, date, page) => {
     .eq('company_id', companyId)
     .order('created', { ascending: false })
     .limit(30);
+
+  query.gt('commission_sale_value', 0)
 
   if(date !== null){
     query.lt('created', [date])
