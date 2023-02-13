@@ -26,12 +26,12 @@ async function paddleSetupHandler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       const client = new PaddleSDK(vendorId, apiKey);
-      const products = await client.getProducts()
+      const products = await client.getProducts();
 
-      if(products?.total === 0 || products?.products > 0){
+      if(products?.total === 0 || products?.total > 0 || products?.products > 0){
         return res.status(200).json({ 'message': 'success' });
       }
-      
+
       return res.status(400).json({ 'message': 'error'});
   
     } else {

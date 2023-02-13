@@ -644,7 +644,7 @@ export const addPaymentIntegration = async(session, companyId, paymentType, form
       },
       token: session.access_token
     });
-    
+
     const cryptoCall = await postData({
       url: `/api/team/crypto`,
       data: { 
