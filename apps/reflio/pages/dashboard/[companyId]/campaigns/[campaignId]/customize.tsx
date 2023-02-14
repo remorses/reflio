@@ -7,8 +7,7 @@ import { SEOMeta } from '@/templates/SEOMeta';
 import Button from '@/components/Button'; 
 import {
   ArrowNarrowLeftIcon,
-  PencilIcon,
-  AdjustmentsIcon
+  PencilIcon
 } from '@heroicons/react/outline';
 import CampaignInvitePageBlock from '@/components/CampaignInvitePageBlock'; 
 import LoadingDots from '@/components/LoadingDots';
@@ -18,9 +17,9 @@ import { toast } from 'react-hot-toast';
 export default function CampaignCustomizerPage() {
   const router = useRouter();
   const { planDetails } = useUser();
-  const { activeCampaign } = useCampaign();
+  const { activeCampaign } = useCampaign() as any;
   const { activeCompany } = useCompany();
-  const [campaignEditData, setCampaignEditData] = useState(null);
+  const [campaignEditData, setCampaignEditData] = useState<any>(null);
   const [tabType, setTabType] = useState("details");
   const [saveRequired, setSaveRequired] = useState(false); 
 
@@ -44,17 +43,16 @@ export default function CampaignCustomizerPage() {
     } else {
       setCampaignEditData({
         "campaign_welcome_message": `Join ${activeCampaign?.campaign_name} and get ${activeCampaign?.commission_type === 'percentage' ? activeCampaign?.commission_value + '% commission on all paid referrals.' : activeCampaign?.company_currency + '' + activeCampaign?.commission_value + 'commission on all paid referrals.'}`,
-        "campaign_bg_color": null,
-        "random_number": Math.random(1000)
+        "campaign_bg_color": null
       })
     }
   }
 
-  const liveEditForm = (e, type) => {
+  const liveEditForm = (e: any) => {
     let data = campaignEditData !== null ? campaignEditData : {};
 
     e.preventDefault();
-    const formData = new FormData(e.target.form);
+    const formData = new FormData(e.target.form) as any;
   
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -69,6 +67,7 @@ export default function CampaignCustomizerPage() {
     
     if(planDetails === "free"){
       toast.error(() => (
+        // @ts-ignore
         <span className="text-xl">Please <a class="font-bold" href="/pricing">upgrade your plan</a> to save customizations.</span>
       ));
       return false;
@@ -105,7 +104,7 @@ export default function CampaignCustomizerPage() {
             </div>
           </div>
             <Button
-              onClick={e=>{saveRequired === true && saveButton()}}
+              onClick={(e: any)=>{saveRequired === true && saveButton()}}
               className={`${saveRequired === false && 'opacity-50 cursor-not-allowed'} ${saveRequired === true && 'animate-pulse'}`}
               small
               primary
@@ -143,12 +142,12 @@ export default function CampaignCustomizerPage() {
                                 </label>
                                 <div className="flex rounded-lg shadow-sm">
                                   <textarea
-                                    rows="3"
+                                    rows={3}
                                     name="campaign_welcome_message"
                                     id="campaign_welcome_message"
                                     defaultValue={campaignEditData?.campaign_welcome_message}
                                     onInput={e=>{liveEditForm(e)}}
-                                    maxLength="500"
+                                    maxLength={500}
                                     className="flex-1 block w-full min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-gray-300"
                                   ></textarea>
                                 </div>
@@ -165,7 +164,6 @@ export default function CampaignCustomizerPage() {
                                   type="checkbox"
                                   className="focus:ring-primary h-7 w-7 text-secondary border-2 border-gray-300 rounded-full cursor-pointer"
                                   defaultChecked={campaignEditData?.campaign_hide_attribution && campaignEditData?.campaign_hide_attribution}
-                                  // defaultChecked={campaignEditData?.campaign_hide_attribution === true ? true : false}
                                   onInput={e=>{liveEditForm(e)}}
                                 />
                                 <label htmlFor="campaign_hide_attribution" className="block font-semibold ml-3">

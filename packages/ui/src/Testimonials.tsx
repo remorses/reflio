@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 
-export const Testimonials = (props) => {
+export const Testimonials = (props: { small?: any}) => {
   return(
     <div id="testimonials">
       <dl className="space-y-10 md:grid md:gap-y-20 md:space-y-0 md:grid-cols-2 md:gap-x-20">

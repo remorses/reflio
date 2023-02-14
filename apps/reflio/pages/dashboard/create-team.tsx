@@ -10,7 +10,7 @@ export default function CreateTeam() {
   const { user, team } = useUser();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; target: HTMLFormElement | any; }) => {
 
     e.preventDefault();
 
@@ -18,8 +18,8 @@ export default function CreateTeam() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -66,14 +66,13 @@ export default function CreateTeam() {
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
                           <input
-                            minLength="3"
-                            maxLength="25"
+                            minLength={3}
+                            maxLength={25}
                             required
                             placeholder="e.g. Google"
                             type="text"
                             name="team_name"
                             id="team_name"
-                            autoComplete="team_name"
                             className="flex-1 block w-full min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-gray-300"
                           />
                         </div>

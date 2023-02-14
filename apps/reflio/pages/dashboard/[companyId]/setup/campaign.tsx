@@ -10,7 +10,7 @@ import { priceString } from '@/utils/helpers';
 export default function AddCompany() {
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const { userCampaignDetails } = useCampaign();
+  const { userCampaignDetails } = useCampaign() as any;
 
   return (
     <>

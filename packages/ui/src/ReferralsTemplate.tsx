@@ -4,6 +4,7 @@ import { getReferrals } from '@/utils/useUser';
 import { useCompany } from '@/utils/CompanyContext';
 import LoadingTile from '@/components/LoadingTile';
 import Button from '@/components/Button'; 
+// @ts-ignore
 import { SEOMeta } from '@/templates/SEOMeta'; 
 import {
   EmojiSadIcon,
@@ -14,10 +15,14 @@ import ReactTooltip from 'react-tooltip';
 import Modal from '@/components/Modal';
 import { Menu, Transition } from '@headlessui/react';
 
-export const ReferralsTemplate = ({ page }) => {
+type ReferralsTemplateTypes = {
+  page: string;
+};
+
+export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) => {
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const [referrals, setReferrals] = useState([]);
+  const [referrals, setReferrals] = useState<any>([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +35,7 @@ export const ReferralsTemplate = ({ page }) => {
   ];
  
   if(referrals?.length === 0 && activeCompany?.company_id){
-    getReferrals(activeCompany?.company_id, null, page).then(results => {
+    getReferrals(activeCompany?.company_id, null, page).then((results: any) => {
       if(results !== "error" && results?.data?.length){
         setReferrals(results);
       }
@@ -106,7 +111,7 @@ export const ReferralsTemplate = ({ page }) => {
             >
               <Menu.Items className="origin-top-left absolute left-0 z-10 mt-2 w-40 rounded-lg shadow-lg bg-white border-2 border-gray-300">
                 <div>
-                  {sortOptions.map((option) => (
+                  {sortOptions.map((option: any) => (
                     <Menu.Item key={option}>
                       <a
                         href={option.href}
@@ -160,7 +165,7 @@ export const ReferralsTemplate = ({ page }) => {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white text-sm ">
-                            {referrals?.data?.map((referral) => (
+                            {referrals?.data?.map((referral: any) => (
                               <tr key={referral?.referral_id}>
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                   <span>{referral?.referral_id}</span>
@@ -215,7 +220,7 @@ export const ReferralsTemplate = ({ page }) => {
                         <div className="mt-8 flex justify-center">
                           <Button
                             disabled={loading}
-                            onClick={e=>{paginatedResults()}}
+                            onClick={(e: any)=>{paginatedResults()}}
                             small
                             gray
                           >

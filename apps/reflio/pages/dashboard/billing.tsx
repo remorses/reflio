@@ -16,7 +16,7 @@ export default function BillingPage() {
   const [invoiceLoading, setInvoiceLoading] = useState(false);
   const [usageData, setUsageData] = useState(null);
   const [loadingUsageData, setLoadingUsageData] = useState(false);
-  const [commissions, setCommissions] = useState([]);
+  const [commissions, setCommissions] = useState<any>([]);
   const [receivedInvoiceUrl, setReceivedInvoiceUrl] = useState(null);
 
   const redirectToCustomerPortal = async () => {
@@ -67,7 +67,7 @@ export default function BillingPage() {
   };
   
   if(commissions?.length === 0 && planDetails === "free"){
-    getReflioCommissionsDue(team?.team_id).then(results => {
+    getReflioCommissionsDue(team?.team_id).then((results: any) => {
       if(results !== "error" && results?.data?.length){
         setCommissions(results);
       }
@@ -82,11 +82,16 @@ export default function BillingPage() {
     })
   }
   
-  const ProgressBar = ({ type, unlimited }) => {
-    if(usageData === null) return false;
+  type ProgressBarTypes = {
+    type: string;
+    unlimited?: boolean;
+  };
+
+  const ProgressBar: React.FC<ProgressBarTypes> = ({ type, unlimited }) => {
+    if(usageData === null) return null;
     
-    const plans = PricingParams();
-    const usagePercentage = ((usageData[type] / plans[planDetails][type]) * 100).toFixed(0);
+    const plans = PricingParams() as any ;
+    const usagePercentage = ((usageData[type] / plans[planDetails][type]) * 100).toFixed(0) as any;
     
     return(
       <div>
@@ -172,7 +177,7 @@ export default function BillingPage() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white text-sm">
-                            {commissions?.data?.map((sale) => (
+                            {commissions?.data?.map((sale: {[key: string]: any }) => (
                               <tr key={sale?.commission_id}>  
                                 <td className="whitespace-nowrap px-3 py-4 text-sm sm:pl-6">
                                   <span>{priceStringDivided(sale?.commission_sale_value, activeCompany?.company_currency)}</span>
@@ -208,12 +213,11 @@ export default function BillingPage() {
                               </Button>
                             :
                               <Button
-                                loading={invoiceLoading}
                                 medium
                                 mobileFull
                                 red
                                 className="mb-2"
-                                onClick={e=>{generateInvoice()}}
+                                onClick={(_e: any)=>{generateInvoice()}}
                               >
                                 {invoiceLoading ? 'Generating invoice...' : 'Pay Reflio fees'}
                               </Button>
@@ -256,7 +260,7 @@ export default function BillingPage() {
                 mobileFull
                 medium
                 gray
-                onClick={e=>{redirectToCustomerPortal()}}
+                onClick={(_e: any)=>{redirectToCustomerPortal()}}
               >
                 {loading ? 'Loading...' : 'Manage Billing'}
               </Button>

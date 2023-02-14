@@ -1,4 +1,4 @@
-export const PricingSnippet = (props) => {
+export const PricingSnippet = () => {
   return(
     <div id="pricing" className="bg-gradient-to-b from-primary to-primary-2 py-24 lg:py-32">
       <div className="max-w-6xl mx-auto">

@@ -19,7 +19,7 @@ export default function CampaignsPage() {
 
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const { userCampaignDetails } = useCampaign();
+  const { userCampaignDetails } = useCampaign() as any;
   
   return (
     <>
@@ -61,7 +61,7 @@ export default function CampaignsPage() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white">
-                            {userCampaignDetails?.map((campaign) => (
+                            {userCampaignDetails?.map((campaign: any) => (
                               <tr key={campaign?.campaign_id} className="divide-x-4 divide-gray-200">
                                 <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium sm:pl-6">
                                   {
@@ -84,7 +84,10 @@ export default function CampaignsPage() {
                                     <p className="text-gray-500">
                                       <span>New affiliates can join at&nbsp;</span>
                                       <CopyToClipboard text={generateInviteUrl(campaign?.default_campaign, activeCompany?.company_handle, campaign?.campaign_id)} onCopy={() => toast.success('URL copied to clipboard')}>
-                                        <button className="font-semibold underline" href={generateInviteUrl(campaign?.default_campaign, activeCompany?.company_handle, campaign?.campaign_id)}>{generateInviteUrl(campaign?.default_campaign, activeCompany?.company_handle, campaign?.campaign_id)}</button>
+                                        {
+                                          // @ts-ignore
+                                          <button className="font-semibold underline" href={generateInviteUrl(campaign?.default_campaign, activeCompany?.company_handle, campaign?.campaign_id)}>{generateInviteUrl(campaign?.default_campaign, activeCompany?.company_handle, campaign?.campaign_id)}</button>
+                                        }
                                       </CopyToClipboard>
                                     </p>
                                   </div> 

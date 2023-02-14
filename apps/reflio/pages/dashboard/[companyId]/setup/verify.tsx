@@ -6,6 +6,7 @@ import { manuallyVerifyDomain } from '@/utils/useUser';
 import { useCompany } from '@/utils/CompanyContext';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+import { toast } from 'react-hot-toast';
 
 export default function TrackingSetupPage() {
   const router = useRouter();

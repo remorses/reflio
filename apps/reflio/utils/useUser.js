@@ -102,9 +102,9 @@ export const resetPassword = async (token, password) => {
     .updateUser(token, { password : password })
 
   if(error){
-    return error;
+    return { error };
   } else {
-    return data
+    return { data }
   }
 };
 

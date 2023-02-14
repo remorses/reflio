@@ -9,7 +9,7 @@ export const supabase = createClient(
   supabaseAnonKey
 );
 
-export const getActiveProductsWithPrices = async (): Promise< ProductWithPrice[] > => {
+export const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[] | any> => {
   const { data, error } = await supabase
     .from('products')
     .select('*, prices(*)')

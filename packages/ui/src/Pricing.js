@@ -111,7 +111,7 @@ export const Pricing = ({ products }) => {
       </div>
     );
   } else {
-    return false;
+    return null;
   }
 };
 

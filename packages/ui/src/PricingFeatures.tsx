@@ -1,4 +1,5 @@
 import { CheckIcon, XIcon } from '@heroicons/react/solid';
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal, Key } from 'react';
 
 export const PricingParams = () => {
   return({
@@ -25,12 +26,15 @@ export const PricingParams = () => {
   })
 }
 
-export const PricingFeatures = ({ productName, normal }) => {
+type PricingFeaturesTypes = {
+  productName: string;
+  normal?: any;
+};
 
-  if(!productName) return false;
+export const PricingFeatures: React.FC<PricingFeaturesTypes> = ({ productName, normal }) => {
+  if(!productName) return null;
 
   const capitalizedName = productName.charAt(0).toUpperCase() + productName.slice(1);
-
   const plans = PricingParams();
 
   const features = {
@@ -202,12 +206,12 @@ export const PricingFeatures = ({ productName, normal }) => {
         type: 'eligible'
       }
     ]
-  };
+  } as any;
 
   return(
     <ul role="list" className="space-y-3">
       {
-        features[capitalizedName].map((feature, index) => {
+        features[capitalizedName].map((feature: { type: string; text: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }, index: Key | null | undefined) => {
           return(
             <li key={index} className={`${feature.type === 'ineligible' && 'opacity-50'} flex space-x-2`}>
               {

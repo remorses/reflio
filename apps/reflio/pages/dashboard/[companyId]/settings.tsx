@@ -33,7 +33,7 @@ export default function CompanySettingsPage() {
     }
   };
 
-  const handleDisableEmails = async (type) => {    
+  const handleDisableEmails = async (type: boolean) => {    
     await disableEmails(router?.query?.companyId, type).then((result) => {
       if(result === "success"){
         window.location.href = window.location.href;
@@ -43,7 +43,7 @@ export default function CompanySettingsPage() {
     });
   };
 
-  const handleWebsiteUpdate = async (e) => {
+  const handleWebsiteUpdate = async (e: { preventDefault: () => void; target: HTMLFormElement | any; }) => {
 
     e.preventDefault();
 
@@ -51,8 +51,8 @@ export default function CompanySettingsPage() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -73,7 +73,7 @@ export default function CompanySettingsPage() {
 
   };
 
-  const handleCompanyHandleUpdate = async (e) => {
+  const handleCompanyHandleUpdate = async (e: { preventDefault: () => void; target: HTMLFormElement | any; }) => {
 
     e.preventDefault();
 
@@ -81,8 +81,8 @@ export default function CompanySettingsPage() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -104,9 +104,8 @@ export default function CompanySettingsPage() {
 
       setHandleLoading(false);
     });
-
   };
-  
+
   return (
     <>
       <SEOMeta title="Settings"/>
@@ -129,8 +128,8 @@ export default function CompanySettingsPage() {
                     <span>https://</span>
                   </div>
                   <input
-                    minLength="3"
-                    maxLength="25"
+                    minLength={3}
+                    maxLength={25}
                     required
                     defaultValue={activeCompany?.company_url}
                     placeholder="https://mywebsite.com"
@@ -139,7 +138,7 @@ export default function CompanySettingsPage() {
                     id="company_url"
                     autoComplete="company_url"
                     className="flex-1 block w-full min-w-0 h-full focus:outline-none sm:text-md rounded-lg rounded-tl-none rounded-bl-none border-2 border-l-0 border-gray-300"
-                    onChange={e=>{setUrlValid(checkValidUrl(e.target.value)), urlValid ? setWebsiteUrlInput(e.target.value) : setWebsiteUrlInput(null)}}
+                    onChange={(e: any)=>{setUrlValid(checkValidUrl(e.target.value) as any), urlValid ? setWebsiteUrlInput(e.target.value) : setWebsiteUrlInput(null)}}
                   />
                 </div>
                 <p className="text-gray-500">Please only include the base domain of your website (e.g. google.com). You do not need to include https:// or www. We will automatically do this on our end.</p>
@@ -177,8 +176,8 @@ export default function CompanySettingsPage() {
                     <span>{process.env.NEXT_PUBLIC_AFFILIATE_SITE_URL}/</span>
                   </div>
                   <input
-                    minLength="3"
-                    maxLength="25"
+                    minLength={3}
+                    maxLength={25}
                     required
                     value={companyHandleInput !== null ? companyHandleInput : activeCompany?.company_handle && activeCompany?.company_handle}
                     placeholder="companyHandle"
@@ -260,7 +259,7 @@ export default function CompanySettingsPage() {
                   />
                 :
                   <Button
-                    onClick={e=>{setShowApiKey(true)}}
+                    onClick={(e: any)=>{setShowApiKey(true)}}
                     small
                     gray
                   >

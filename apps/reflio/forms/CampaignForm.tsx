@@ -7,7 +7,12 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import ReactTooltip from 'react-tooltip';
 
-export const CampaignForm = ({ edit, setupMode }) => {
+type CampaignFormProps = {
+  edit?: any;
+  setupMode?: boolean;
+};
+
+export const CampaignForm: React.FC<CampaignFormProps> = ({ edit, setupMode }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [rewardType, setRewardType] = useState('percentage');
@@ -16,15 +21,15 @@ export const CampaignForm = ({ edit, setupMode }) => {
   const { userDetails } = useUser();
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if(loading === true){
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -92,7 +97,7 @@ export const CampaignForm = ({ edit, setupMode }) => {
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
                           <input
-                            minLength="2"
+                            minLength={2}
                             required
                             defaultValue={edit ? edit?.campaign_name : `${activeCompany?.company_name}'s Affiliate Campaign`}
                             type="text"
@@ -109,7 +114,7 @@ export const CampaignForm = ({ edit, setupMode }) => {
                           Reward type
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
-                          <select defaultValue={rewardType ? rewardType : edit && edit?.commission_type} onChange={e=>{setRewardType(e.target.value)}} className="rounded-xl border-2 border-gray-300 outline-none p-4 w-full" required="required" name="commission_type" id="commission_type">
+                          <select defaultValue={rewardType ? rewardType : edit && edit?.commission_type} onChange={e=>{setRewardType(e.target.value)}} className="rounded-xl border-2 border-gray-300 outline-none p-4 w-full" required={true} name="commission_type" id="commission_type">
                             <option value="percentage">Percentage of sale</option>
                             <option value="fixed">Fixed amount</option>
                           </select>
@@ -124,8 +129,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                           </label>
                           <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                             <input
-                              minLength="1"
-                              maxLength="100"
+                              minLength={1}
+                              maxLength={100}
                               required
                               placeholder="20"
                               type="number"
@@ -149,8 +154,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                           <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                             <span className="min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-r-0 rounded-tr-none bg-gray-200 rounded-br-none border-gray-300">{activeCompany?.company_currency}</span>
                             <input
-                              minLength="1"
-                              maxLength="100"
+                              minLength={1}
+                              maxLength={100}
                               required
                               placeholder="1"
                               type="number"
@@ -173,8 +178,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                               </label>
                               <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                                 <input
-                                  minLength="1"
-                                  maxLength="100"
+                                  minLength={1}
+                                  maxLength={100}
                                   required
                                   type="number"
                                   name="cookie_window"
@@ -191,8 +196,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                               </label>
                               <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                                 <input
-                                  minLength="1"
-                                  maxLength="240"
+                                  minLength={1}
+                                  maxLength={240}
                                   required
                                   placeholder="12"
                                   type="number"
@@ -210,8 +215,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                               </label>
                               <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                                 <input
-                                  minLength="1"
-                                  maxLength="90"
+                                  minLength={1}
+                                  maxLength={180}
                                   required
                                   placeholder="30"
                                   type="number"
@@ -282,7 +287,7 @@ export const CampaignForm = ({ edit, setupMode }) => {
                     <div className="space-y-4">
                       <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                         <label htmlFor="discount_type" className="min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-r-0 rounded-tr-none bg-gray-100 rounded-br-none border-gray-300">Discount type:</label>
-                        <select defaultValue={discountType ? discountType : edit && edit?.discount_type} onChange={e=>{setDiscountType(e.target.value)}} className="flex-1 block w-full min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 bor border-r-0 rounded-tl-none rounded-bl-none border-gray-300" required="required" name="discount_type" id="discount_type">
+                        <select defaultValue={discountType ? discountType : edit && edit?.discount_type} onChange={e=>{setDiscountType(e.target.value)}} className="flex-1 block w-full min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 bor border-r-0 rounded-tl-none rounded-bl-none border-gray-300" name="discount_type" id="discount_type">
                           <option value="percentage">Percentage</option>
                           <option value="fixed">Fixed amount</option>
                         </select>
@@ -290,8 +295,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                       <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                         <label htmlFor="discount_code" className="min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-r-0 rounded-tr-none bg-gray-100 rounded-br-none border-gray-300">Discount code:</label>
                         <input
-                          minLength="1"
-                          maxLength="100"
+                          minLength={1}
+                          maxLength={100}
                           placeholder="e.g. 10OFF"
                           type="text"
                           name="discount_code"
@@ -307,8 +312,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                         <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                           <label htmlFor="discount_value" className="min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-r-0 rounded-tr-none bg-gray-100 rounded-br-none border-gray-300">Discount percentage:</label>
                           <input
-                            minLength="1"
-                            maxLength="100"
+                            minLength={1}
+                            maxLength={100}
                             placeholder="15"
                             type="number"
                             name="discount_value"
@@ -326,8 +331,8 @@ export const CampaignForm = ({ edit, setupMode }) => {
                         <div className="mt-1 flex rounded-md shadow-sm items-center justify-between">
                           <label htmlFor="discount_value" className="min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-r-0 rounded-tr-none bg-gray-100 rounded-br-none border-gray-300">Discount amount: {activeCompany?.company_currency}</label>
                           <input
-                            minLength="1"
-                            maxLength="100"
+                            minLength={1}
+                            maxLength={100}
                             placeholder="15"
                             type="number"
                             name="discount_value"

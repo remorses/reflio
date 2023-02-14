@@ -6,7 +6,18 @@ import toast from 'react-hot-toast';
 import AffiliateInvites from '@/components/AffiliateInvites'; 
 import { postData } from '@/utils/helpers';
 
-export const CampaignInvitePageBlock = ({ publicCampaignData, campaignAlreadyJoined, loading, setLoading, user, session, editor, editorData }) => {
+type CampaignInvitePageBlockTypes = {
+  publicCampaignData?: any;
+  campaignAlreadyJoined?: boolean;
+  loading?: boolean;
+  setLoading?: any;
+  user?: any;
+  session?: any;
+  editor?: boolean;
+  editorData?: any;
+};
+  
+export const CampaignInvitePageBlock: React.FC<CampaignInvitePageBlockTypes> = ({ publicCampaignData, campaignAlreadyJoined, loading, setLoading, user, session, editor, editorData }) => {
   const router = useRouter();
   let customCampaignData = null;
 
@@ -17,7 +28,7 @@ export const CampaignInvitePageBlock = ({ publicCampaignData, campaignAlreadyJoi
     customCampaignData = editorData;
   }
     
-  const handleCampaignJoin = async (companyId, campaignId) => {    
+  const handleCampaignJoin = async (companyId: any, campaignId: any) => {    
     setLoading(true);
 
     try {
@@ -97,7 +108,7 @@ export const CampaignInvitePageBlock = ({ publicCampaignData, campaignAlreadyJoi
                               <div className="p-3 rounded-xl bg-green-600 text-white text-lg font-semibold">You have already joined this campaign.</div>
                             : publicCampaignData?.campaign_public === true ?
                               <Button
-                                onClick={e=>{handleCampaignJoin(publicCampaignData?.company_id, publicCampaignData?.campaign_id)}}
+                                onClick={(e: any)=>{handleCampaignJoin(publicCampaignData?.company_id, publicCampaignData?.campaign_id)}}
                                 disabled={loading}
                                 secondary
                                 large
@@ -110,7 +121,7 @@ export const CampaignInvitePageBlock = ({ publicCampaignData, campaignAlreadyJoi
                         </div>
                       :
                         <div>
-                          <AuthForm editor={editor} affiliate={true} type="signup" campaignId={publicCampaignData?.campaign_id} companyId={publicCampaignData?.company_id} campaignHandle={router?.query?.handle} hideDetails={true}/>
+                          <AuthForm affiliate={true} type="signup" campaignId={publicCampaignData?.campaign_id} companyId={publicCampaignData?.company_id} campaignHandle={String(router?.query?.handle)} hideDetails={true}/>
                         </div>
                     }
                   </div>

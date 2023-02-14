@@ -13,7 +13,7 @@ export default function StripeSetupPage() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
 
     e.preventDefault();
 
@@ -21,8 +21,8 @@ export default function StripeSetupPage() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -70,8 +70,8 @@ export default function StripeSetupPage() {
                             Display currency
                           </label>
                           <div className="mt-1 flex rounded-md shadow-sm">
-                            <select defaultValue={activeCompany?.company_currency ? activeCompany?.company_currency : 'USD'} className="rounded-xl border-2 border-gray-300 outline-none p-4" required="required" name="company_currency" id="company_currency">
-                              <option value>-- Select a currency --</option>
+                            <select defaultValue={activeCompany?.company_currency ? activeCompany?.company_currency : 'USD'} className="rounded-xl border-2 border-gray-300 outline-none p-4" required={true} name="company_currency" id="company_currency">
+                              <option>-- Select a currency --</option>
                               <optgroup label="Popular currencies">
                                 <option value="USD">USD - United States Dollar</option>
                                 <option value="GBP">GBP - British Pound</option>

@@ -4,12 +4,12 @@ import { useCampaign } from '@/utils/CampaignContext';
 import LoadingDots from '@/components/LoadingDots';
 import setupStepCheck from '@/utils/setupStepCheck';
 
-export const SetupProgress = (props) => {
+export const SetupProgress = () => {
   setupStepCheck('light');
 
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const { userCampaignDetails } = useCampaign();
+  const { userCampaignDetails } = useCampaign() as any;
   const companyId = router?.query?.companyId ? router?.query?.companyId : null;
   let editCompany, connectPaymentProcessor, chooseCurrency, createCampaign, companyVerified = null;
 
@@ -48,7 +48,7 @@ export const SetupProgress = (props) => {
         activeCompany ?
           <nav aria-label="Progress">
             <ol role="list" className="space-y-4 md:flex md:space-y-0 md:space-x-8">
-              {steps.map((step) => (
+              {steps.map((step: any) => (
                 <li key={step.name} className="md:flex-1">
                   {step.status === 'complete' ? (
                     <a

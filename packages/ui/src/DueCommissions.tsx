@@ -6,13 +6,13 @@ import { ExclamationIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import LoadingDots from '@/components/LoadingDots';
 
-export const DueCommissions = (props) => {
+export const DueCommissions = (props: { className?: string; }) => {
   const { activeCompany } = useCompany();
-  const [commissions, setCommissions] = useState([]);
+  const [commissions, setCommissions] = useState<any>([]);
   const router = useRouter();
 
   if(commissions?.length === 0 && activeCompany?.company_id){
-    getSales(activeCompany?.company_id, null, "due").then(results => {
+    getSales(activeCompany?.company_id, null, "due").then((results: any) => {
       console.log(results);
 
       if(results !== "error" && results?.data?.length){
@@ -29,21 +29,21 @@ export const DueCommissions = (props) => {
     })
   }
 
-  if(commissions?.data?.filter(commission => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length > 0){
+  if(commissions?.data?.filter((commission: { paid_at: null; commission_due_date: any; }) => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length > 0){
     return (
       <div className={props?.className && props.className}>
         <a href={`/dashboard/${router?.query?.companyId}/commissions/due`} className="inline-block bg-red-500 hover:bg-red-600 border-l-4 border-red-600 p-4 rounded-xl">
           <div className="flex items-center">
             <ExclamationIcon className="h-6 w-auto text-white" aria-hidden="true" />
             <span className="font-semibold text-base text-white ml-2 mb-1">
-              You have {commissions?.data?.filter(commission => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length} sales with due commissions
+              You have {commissions?.data?.filter((commission: { paid_at: null; commission_due_date: any; }) => commission?.paid_at === null && checkUTCDateExpired(commission?.commission_due_date) === true)?.length} sales with due commissions
             </span>
           </div>
         </a>
       </div>
     );
   } else {
-    return false;
+    return null;
   }
 };
 

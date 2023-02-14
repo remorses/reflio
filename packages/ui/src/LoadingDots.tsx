@@ -1,4 +1,8 @@
-export const LoadingDots = ({ small }) => {
+type LoadingProps = {
+  small?: boolean;
+}
+
+export const LoadingDots: React.FC<LoadingProps> = ({ small }) => {
   return (
     <svg
       className={`${small ? 'w-6' : 'w-10'} h-auto animate-pulse-fast`}

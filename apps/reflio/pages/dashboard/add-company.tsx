@@ -12,10 +12,10 @@ export default function AddCompany() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [websiteUrlInput, setWebsiteUrlInput] = useState(null);
-  const [companyHandleInput, setCompanyHandleInput] = useState(null);
-  const [urlValid, setUrlValid] = useState(null);
+  const [companyHandleInput, setCompanyHandleInput] = useState<any>(null);
+  const [urlValid, setUrlValid] = useState<any>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; target: HTMLFormElement | any; }) => {
 
     e.preventDefault();
 
@@ -32,8 +32,8 @@ export default function AddCompany() {
       setUrlValid(true);
     }
     
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -57,10 +57,6 @@ export default function AddCompany() {
 
   };
 
-  // if(planDetails === 'free' && userCompanyDetails?.length >= 1){
-  //   router.replace('/dashboard/plan');
-  // }
-
   return (
     <>
       <SEOMeta title="Add Company"/>
@@ -82,8 +78,8 @@ export default function AddCompany() {
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
                           <input
-                            minLength="3"
-                            maxLength="25"
+                            minLength={3}
+                            maxLength={35}
                             required
                             placeholder="e.g. My Example SaaS"
                             type="text"
@@ -103,8 +99,8 @@ export default function AddCompany() {
                               <span>https://</span>
                             </div>
                             <input
-                              minLength="3"
-                              maxLength="25"
+                              minLength={3}
+                              maxLength={50}
                               required
                               placeholder="example.com"
                               type="text"
@@ -112,7 +108,7 @@ export default function AddCompany() {
                               id="company_url"
                               autoComplete="company_url"
                               className="flex-1 block w-full min-w-0 h-full focus:outline-none sm:text-md rounded-lg rounded-tl-none rounded-bl-none border-2 border-l-0 border-gray-300"
-                              onChange={e=>{setWebsiteUrlInput(e.target.value)}}
+                              onChange={(e: any)=>{setWebsiteUrlInput(e.target.value)}}
                             />
                           </div>
                           <p className="text-gray-500">Please only include the base domain of your website (e.g. example.com). You do not need to include https:// or www. We will automatically do this on our end.</p>
@@ -127,8 +123,8 @@ export default function AddCompany() {
                             <span>{process.env.NEXT_PUBLIC_AFFILIATE_SITE_URL}/</span>
                             </div>
                             <input
-                              minLength="3"
-                              maxLength="25"
+                              minLength={3}
+                              maxLength={35}
                               required
                               value={companyHandleInput}
                               placeholder="exampleName"

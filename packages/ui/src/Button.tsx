@@ -1,6 +1,30 @@
 import dynamic from 'next/dynamic';
+import { UrlObject } from 'url';
 
-export const Button = (props) => {
+type ButtonProps = {
+  small?: any; 
+  xsmall?: any; 
+  medium?: any; 
+  xlarge?: any; 
+  large?: any; 
+  primary?: any;
+  secondary?: any; 
+  gray?: any; 
+  white?: any; 
+  red?: any; 
+  mobileFull?: any; 
+  href?: string | UrlObject; 
+  className?: any; 
+  onClick?: any; 
+  external?: any; 
+  download?: any; 
+  target?: any; 
+  children?: any; 
+  disabled?: any; 
+  type?: string;
+};
+
+export const Button = (props: ButtonProps) => {
   const Link = dynamic(() => import('next/link'));
 
   let styles = 'relative inline-flex items-center justify-center font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all';

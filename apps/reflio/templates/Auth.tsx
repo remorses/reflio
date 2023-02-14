@@ -6,7 +6,11 @@ import { SEOMeta } from '@/templates/SEOMeta';
 import AuthForm from '@/components/AuthForm';
 import Testimonials from '@/components/Testimonials';
 
-const AuthTemplate = ({ type }) => {
+type AuthTemplateProps = {
+  type: string;
+};
+ 
+const AuthTemplate: React.FC<AuthTemplateProps> = ({ type }) => {
   const router = useRouter();
   const { user } = useUser();
 

@@ -5,7 +5,16 @@ import { useUser } from '@/utils/useUser';
 import { Button } from '@/components/Button';
 import LoadingDots from '@/components/LoadingDots';
 
-export const AuthForm = ({ type, campaignId, companyId, campaignHandle, affiliate, hideDetails }) => {
+type AuthFormProps = {
+  type: string;
+  campaignId?: string;
+  companyId?: string;
+  campaignHandle?: string;
+  affiliate?: boolean;
+  hideDetails?: boolean;
+}
+
+const AuthForm: React.FC<AuthFormProps> = ({ type, campaignId, companyId, campaignHandle, affiliate, hideDetails }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
   const [showPasswordInput, setShowPasswordInput] = useState(false);
@@ -20,11 +29,11 @@ export const AuthForm = ({ type, campaignId, companyId, campaignHandle, affiliat
 
   const authState = type === 'signin' ? "Sign in" : type === "signup" ? "Sign up" : "Sign in";
 
-  const handleSignin = async (e) => {
+  const handleSignin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     setLoading(true);
-    setMessage({});
+    setMessage({ type: '', content: '' });
 
     let signInFunc;
 
@@ -56,6 +65,7 @@ export const AuthForm = ({ type, campaignId, companyId, campaignHandle, affiliat
       
       if(type === "signup" && affiliate !== true){
         console.log("Firing signup function")
+        // @ts-ignore
         await Reflio.signup(email);
       }
 
@@ -156,7 +166,7 @@ export const AuthForm = ({ type, campaignId, companyId, campaignHandle, affiliat
               onClick={() => {
                 if (showPasswordInput) setPassword('');
                 setShowPasswordInput(!showPasswordInput);
-                setMessage({});
+                setMessage({ type: '', content: '' });
               }}
             >
               {`Or ${authState} with ${

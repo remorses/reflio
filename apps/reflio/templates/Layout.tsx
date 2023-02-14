@@ -6,7 +6,11 @@ import { useRouter } from 'next/router';
 import { Navbar } from '@/components/Navbar';
 import { useUser } from 'utils/useUser';
 
-export default function Layout({ children }) {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, userFinderLoaded } = useUser();
   const Toaster = dynamic(() =>
     import("react-hot-toast").then((module) => module.Toaster)
@@ -72,7 +76,9 @@ export default function Layout({ children }) {
               color: '#111827',
             },
             // Default options for specific types
+            
             success: {
+              // @ts-ignore
               theme: {
                 primary: 'green',
                 secondary: 'black',
@@ -130,4 +136,6 @@ export default function Layout({ children }) {
       </>
     </>
   );
-}
+};
+
+export default Layout;

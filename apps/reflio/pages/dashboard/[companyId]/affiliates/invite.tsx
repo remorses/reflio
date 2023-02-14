@@ -18,11 +18,11 @@ export default function AffiliateInvitePage() {
   const router = useRouter();
   const { session } = useUser();
   const { activeCompany } = useCompany();
-  const { userCampaignDetails } = useCampaign();
+  const { userCampaignDetails } = useCampaign() as any;
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
 
     e.preventDefault();
 
@@ -30,8 +30,8 @@ export default function AffiliateInvitePage() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -104,9 +104,9 @@ export default function AffiliateInvitePage() {
                         Select a campaign for the affiliates to join
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
-                        <select className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required="required" name="campaign_id" id="campaign_id">
+                        <select className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required={true} name="campaign_id" id="campaign_id">
                           {
-                            userCampaignDetails?.map(campaign => {
+                            userCampaignDetails?.map((campaign: any) => {
                               return(
                                 <option value={campaign?.campaign_id}>{campaign?.campaign_name}</option>
                               )
@@ -160,7 +160,7 @@ Kind regards,
 ${activeCompany?.company_name}`}
                           name="email_content"
                           id="email_content"
-                          rows="8"
+                          rows={8}
                           className="flex-1 block w-full min-w-0 p-3 rounded-xl focus:outline-none sm:text-md border-2 border-gray-300"
                         ></textarea>
                       </div>

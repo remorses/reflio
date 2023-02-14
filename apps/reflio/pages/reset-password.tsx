@@ -11,13 +11,13 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState({ type: '', content: '' });
   const router = useRouter();
   const { user, forgotPassword } = useUser();
-  let access_token = null;
+  let access_token = null as any;
 
-  const handleForgotPassword = async (e) => {
+  const handleForgotPassword = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     setLoading(true);
-    setMessage({});
+    setMessage({ type: '', content: '' });
 
     const { error } = await forgotPassword(email);
     if (error) {
@@ -31,11 +31,11 @@ const ForgotPassword = () => {
     setLoading(false);
   };
 
-  const handleResetPassword = async (e) => {
+  const handleResetPassword = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     setLoading(true);
-    setMessage({});
+    setMessage({ type: '', content: '' });
 
     const { error } = await resetPassword(access_token, password);
     if (error) {
@@ -177,8 +177,6 @@ const ForgotPassword = () => {
                   )}
                 </form>
             }
-            
-
           </div>
         </div>
       </div>

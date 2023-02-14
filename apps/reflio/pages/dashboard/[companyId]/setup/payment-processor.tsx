@@ -14,7 +14,7 @@ export default function StripeSetupPage() {
   const { session } = useUser();
   const { activeCompany } = useCompany();
   const [loading, setLoading] = useState(false);
-  const [altPayment, setAltPayment] = useState(null);
+  const [altPayment, setAltPayment] = useState<any>(null);
 
   const removeProcessor = async () => {
     setLoading(true);
@@ -43,15 +43,15 @@ export default function StripeSetupPage() {
     }
   };
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if(loading === true){
       return false;
     }
     
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -96,7 +96,7 @@ export default function StripeSetupPage() {
                       <p className="text-lg mb-3"><strong>You are not currently using a payment processor.</strong> Continue the setup process by clicking &quot;Next Step&quot;, or add a new payment integration by clicking &quot;Add a Payment Processor&quot;.</p>
                       <div>
                         <Button
-                          onClick={e=>{removeProcessor()}}
+                          onClick={(e: any)=>{removeProcessor()}}
                           className="mb-4"
                           large
                           secondary
@@ -137,7 +137,7 @@ export default function StripeSetupPage() {
                   activeCompany?.payment_integration_type !== 'manual' &&
                   <div>
                     <Button
-                      onClick={e=>{removeProcessor()}}
+                      onClick={(e: any)=>{removeProcessor()}}
                       className="mb-4"
                       small
                       red
@@ -194,7 +194,7 @@ export default function StripeSetupPage() {
                                 <div>
                                   <textarea
                                     required
-                                    rows="8"
+                                    rows={8}
                                     placeholder={`-----BEGIN PUBLIC KEY----- 
   YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HEREYOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE YOUR KEY HERE
   -----END PUBLIC KEY-----`}
@@ -211,7 +211,7 @@ export default function StripeSetupPage() {
                                 <p className="mb-2">Your API Key can be retrieved <a className="underline font-bold" href="https://vendors.paddle.com/authentication" target="_blank" rel="noreferrer">here.</a> You may need to create a new key if one hasn&apos;t already been created.</p>
                                 <div>
                                   <input
-                                    minLength="2"
+                                    minLength={2}
                                     required
                                     type="text"
                                     name="payment_integration_field_two"
@@ -228,7 +228,7 @@ export default function StripeSetupPage() {
                                 <p className="mb-2">Your Vendor ID can be retrieved <a className="underline font-bold" href="https://vendors.paddle.com/authentication" target="_blank" rel="noreferrer">here</a>, in the section where it says <strong>&ldquo;Your Paddle Vendor ID&ldquo;</strong></p>
                                 <div>
                                   <input
-                                    minLength="2"
+                                    minLength={2}
                                     required
                                     type="text"
                                     name="payment_integration_field_three"

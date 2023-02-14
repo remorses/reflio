@@ -14,14 +14,15 @@ import {
 import ReactTooltip from 'react-tooltip';
 import { priceStringDivided } from 'utils/helpers';
 import setupStepCheck from '@/utils/setupStepCheck';
+import { toast } from 'react-hot-toast';
 
 export default function InnerDashboardPage() {
   setupStepCheck('light');
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const { mergedAffiliateDetails } = useAffiliate();
+  const { mergedAffiliateDetails } = useAffiliate() as any;
 
-  const handleDelete = async (affiliateId) => {
+  const handleDelete = async (affiliateId: string) => {
     if (window.confirm('Are you sure you want to delete this affiliate? This decision is irreversible')){
       await deleteAffiliate(affiliateId).then((result) => {
         if(result === "success"){
@@ -86,7 +87,7 @@ export default function InnerDashboardPage() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white">
-                            {mergedAffiliateDetails?.map((affiliate) => (
+                            {mergedAffiliateDetails?.map((affiliate: any) => (
                               <tr key={affiliate?.affiliate_id}>
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                   <div className="flex items-center">

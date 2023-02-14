@@ -19,11 +19,11 @@ export default function ReferralCreatePage() {
   const router = useRouter();
   const { session } = useUser();
   const { activeCompany } = useCompany();
-  const { userCampaignDetails } = useCampaign();
+  const { userCampaignDetails } = useCampaign() as any;
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
 
     e.preventDefault();
 
@@ -31,8 +31,8 @@ export default function ReferralCreatePage() {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -108,9 +108,9 @@ export default function ReferralCreatePage() {
                         Select a campaign
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
-                        <select className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required="required" name="campaign_id" id="campaign_id">
+                        <select className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required={true} name="campaign_id" id="campaign_id">
                           {
-                            userCampaignDetails?.map(campaign => {
+                            userCampaignDetails?.map((campaign: any) => {
                               return(
                                 <option value={campaign?.campaign_id}>{campaign?.campaign_name}</option>
                               )
@@ -171,7 +171,7 @@ export default function ReferralCreatePage() {
                         }
                         <div className="mt-1 flex rounded-md shadow-sm">
                           <input
-                            placeholder={activeCompany?.payment_integration_type === "stripe" ? 'Stripe Payment ID (e.g. pi_2FaPXJC7NSaZYFlG02P1MRVx' : activeCompany?.payment_integration_type === "paddle" ? 'Paddle Order ID (e.g. 1022907-384786)' : null}
+                            placeholder={activeCompany?.payment_integration_type === "stripe" ? 'Stripe Payment ID (e.g. pi_2FaPXJC7NSaZYFlG02P1MRVx' : activeCompany?.payment_integration_type === "paddle" ? 'Paddle Order ID (e.g. 1022907-384786)' : ''}
                             name="order_id"
                             id="order_id"
                             type="text"

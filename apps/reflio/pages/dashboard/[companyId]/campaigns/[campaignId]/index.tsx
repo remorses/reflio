@@ -14,7 +14,7 @@ import { priceString, generateInviteUrl } from 'utils/helpers';
 export default function SingleCampaignPage() {
   const router = useRouter();
   const { activeCompany } = useCompany();
-  const { activeCampaign } = useCampaign();
+  const { activeCampaign } = useCampaign() as any;
 
   if(activeCampaign === null){
     router.replace(`/dashboard/${router?.query?.companyId}/campaigns`)
