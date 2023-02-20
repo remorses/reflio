@@ -312,7 +312,7 @@ export default function HomePage() {
                     </ColGrid>
                   </div>
                   <div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 space-y-4 md:space-y-0 md:gap-4">
                       <div className="p-4 border border-gray-300 rounded-lg tr-shadow-sm bg-white">
                         <Text>Revenue</Text>
                         <Metric>{priceString(analytics?.data?.commissions.reduce((acc: number, o: { Revenue: string; }) => acc + (parseInt(o.Revenue)), 0), activeCompany?.company_currency)}</Metric>
