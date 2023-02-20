@@ -3121,6 +3121,14 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:justify-end {
+    justify-content: flex-end;
+  }
+
   .md\:gap-4 {
     gap: 1rem;
   }

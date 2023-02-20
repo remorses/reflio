@@ -15,7 +15,9 @@ import {
   Flex,
   Color,
   Block,
-  ColGrid
+  ColGrid,
+  SelectBox, 
+  SelectBoxItem
 } from '@tremor/react';
 import {
   CashIcon,
@@ -60,6 +62,11 @@ export default function HomePage() {
     const daysArray = createDaysArray(dateValue[0], dateValue[1]);
     
     try {      
+      let campaignsQuery = supabase
+        .from('campaigns')
+        .select('campaign_id, campaign_name')
+        .eq('company_id', activeCompany?.company_id)
+
       let affiliateQuery = supabase
         .from('affiliates')
         .select('campaign_id, created, accepted')
@@ -215,12 +222,15 @@ export default function HomePage() {
           });
         }
       }
+
+      const campaignsData = await campaignsQuery;
       
       const analyticsData = {
         data: {
           affiliates: affiliateAnalyticsGroup,
           referrals: referralsAnalyticsGroup,
-          commissions: commissionsAnalyticsGroup
+          commissions: commissionsAnalyticsGroup,
+          campaigns: campaignsData?.data
         }
       }
       
@@ -241,6 +251,9 @@ export default function HomePage() {
     }
   }, [session, activeCompany, dateValue]);
 
+  console.log('analytics:')
+  console.log(analytics)
+
   return (
     <>
       <SEOMeta title="Home"/>
@@ -255,15 +268,36 @@ export default function HomePage() {
             {
               analytics?.data ?
                 <div>
-                  <div className="mb-6">
-                    <DateRangePicker
-                      value={dateValue}
-                      onValueChange={onDatePick}
-                      dropdownPlaceholder="Select"
-                      maxWidth="max-w-lg"
-                      minDate={companyCreationDate}
-                      maxDate={datePlus1}
-                    />
+                  <div className="mb-6 grid grid-cols-1 space-y-4 md:grid-cols-2 md:items-center md:space-y-0 md:space-x-6">
+                    <div>
+                      <DateRangePicker
+                        value={dateValue}
+                        onValueChange={onDatePick}
+                        dropdownPlaceholder="Select"
+                        maxWidth="max-w-lg"
+                        minDate={companyCreationDate}
+                        maxDate={datePlus1}
+                      />
+                    </div>
+                    {
+                      analytics?.data?.campaigns?.length > 0 &&
+                      <div className="md:flex md:justify-end">
+                        <SelectBox
+                          maxWidth="max-w-sm"
+                          handleSelect={(value) => {value === 1 ? router.push(`/dashboard/${activeCompany?.company_id}/analytics`) : router.push(`/dashboard/${activeCompany?.company_id}/analytics?campaignId=${value}`)}}
+                          defaultValue={router.query.campaignId ? router.query.campaignId : 1}
+                        >
+                          <SelectBoxItem value={1} text="All Campaigns" />
+                          {
+                            analytics?.data?.campaigns?.map((campaign: any) => {
+                              return(
+                                <SelectBoxItem value={campaign?.campaign_id}  text={campaign?.campaign_name} />
+                              )
+                            })
+                          }
+                        </SelectBox>
+                      </div>
+                    }
                   </div>
                   <div className="mb-6">
                     <ColGrid numColsSm={1} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">
