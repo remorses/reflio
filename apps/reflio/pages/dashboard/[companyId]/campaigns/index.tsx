@@ -63,7 +63,7 @@ export default function CampaignsPage() {
                           <tbody className="divide-y divide-gray-200 bg-white">
                             {userCampaignDetails?.map((campaign: any) => (
                               <tr key={campaign?.campaign_id} className="divide-x-4 divide-gray-200">
-                                <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium sm:pl-6">
+                                <td className="whitespace-nowrap py-6 px-4 text-sm font-medium sm:pl-6 group">
                                   {
                                     campaign?.default_campaign === true &&
                                     <div className="text-xs font-semibold mb-2 bg-gray-600 text-white inline-flex px-3 py-1.5 rounded-full">
@@ -91,6 +91,29 @@ export default function CampaignsPage() {
                                       </CopyToClipboard>
                                     </p>
                                   </div> 
+                                  <div className="mt-4 space-x-3 hidden group-hover:block">
+                                    <Button
+                                      href={`/dashboard/${router?.query?.companyId}/campaigns/${campaign?.campaign_id}/edit`}
+                                      small
+                                      primary
+                                    >
+                                      <span>Edit campaign</span>
+                                    </Button>
+                                    <Button
+                                      href={`/dashboard/${router?.query?.companyId}/campaigns/${campaign?.campaign_id}/customize`}
+                                      small
+                                      secondary
+                                    >
+                                      <span>Customize campaign</span>
+                                    </Button>
+                                    <Button
+                                      href={`/dashboard/${router?.query?.companyId}/affiliates/invite?campaignId=${campaign?.campaign_id}`}
+                                      small
+                                      gray
+                                    >
+                                      <span>Invite affiliates</span>
+                                    </Button>
+                                  </div>
                                 </td>
                                 <td className="whitespace-nowrap p-4 text-sm text-center">
                                   <p className="font-semibold">{campaign?.affiliate_count} affiliates</p>

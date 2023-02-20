@@ -246,7 +246,8 @@ export const getSales = async (companyId, date, page) => {
     .select(`
         *,
         campaign:campaign_id (campaign_name),
-        affiliate:affiliate_id (details:invited_user_id(email,paypal_email))
+        affiliate:affiliate_id (details:invited_user_id(email,paypal_email)),
+        referral:referral_id (referral_reference_email)
       `, 
       { count: "exact" }
     )
@@ -284,7 +285,8 @@ export const getReflioCommissionsDue = async (teamId) => {
     .select(`
         *,
         campaign:campaign_id (campaign_name),
-        affiliate:affiliate_id (details:invited_user_id(email,paypal_email))
+        affiliate:affiliate_id (details:invited_user_id(email,paypal_email)),
+        referral:referral_id (referral_reference_email)
       `, 
       { count: "exact" }
     )
@@ -818,4 +820,57 @@ export const uploadLogoImage = async (companyId, file) => {
   }
   
   return data;
+};
+
+export const getAnalytics = async (companyId, campaignId, dateFrom, dateTo) => {
+  let campaigns = supabase
+    .from('campaigns')
+    .select('*')
+    .eq('company_id', companyId)
+  
+  if(campaignId){
+    campaigns.eq('campaignId', campaignId);
+  }
+
+  let campaignsData = await campaigns?.data;
+
+  if(campaignsData){
+    await Promise.all(data?.map(async (item) => {
+      let affiliateQuery = supabase
+        .from('affiliates')
+        .select('campaign_id, created, accepted', { count: 'exact' })
+        .eq('campaign_id', item?.campaign_id)
+        .eq('accepted', true)
+        .eq('campaign_id', item?.campaign_id)
+
+      let referralsQuery = supabase
+        .from('referrals')
+        .select('created, campaign_id, referral_reference_email, referral_converted')
+        .eq('campaign_id', item?.campaign_id)
+
+      let commissionsQuery = supabase
+        .from('commissions')
+        .select('commission_sale_value, created, campaign_id')
+        .eq('campaign_id', item?.campaign_id)
+
+      if(dateFrom) {
+        affiliateQuery.lt('created', [dateFrom])
+        referralsQuery.lt('created', [dateFrom])
+        commissionsQuery.lt('created', [dateFrom])
+      }
+
+      if(dateTo){
+        affiliateQuery.gt('created', [dateTo])
+        referralsQuery.lt('created', [dateTo])
+        commissionsQuery.lt('created', [dateTo])
+      }
+
+      item.affiliates = await affiliateQuery?.data;
+      item.referrals = await referralsQuery?.data;
+      item.commissions = await commissionsQuery?.data;
+    }));
+  }
+
+  if(error) return error; 
+  return campaignsData;
 };

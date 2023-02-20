@@ -264,7 +264,7 @@ export const CommissionsTemplate = ({ page }) => {
                               {
                                 planDetails === 'free' &&
                                 <th data-tip="This is a 9% commission due to Reflio, since you are on the Pay As You Go plan. Upgrade your plan today to remove commission fees." scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
-                                  Reflio Fee (9%)
+                                  Reflio Fee
                                 </th>
                               }
                               {
@@ -274,7 +274,7 @@ export const CommissionsTemplate = ({ page }) => {
                                 </th>
                               }
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
-                                Referrer
+                                Referral Details
                               </th>
                               {
                                 page !== 'index' && page !== 'pending' &&
@@ -282,10 +282,6 @@ export const CommissionsTemplate = ({ page }) => {
                                   PayPal Email
                                 </th>
                               }
-                              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
-                                Referral ID
-                              </th>
-               
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
                                 Created
                               </th>
@@ -336,12 +332,12 @@ export const CommissionsTemplate = ({ page }) => {
                                     <span>{priceStringDivided(sale?.commission_sale_value, activeCompany?.company_currency)}</span>
                                   </td>
                                 }
-                                <td className={`whitespace-nowrap px-3 py-4 font-semibold ${checkUTCDateExpired(sale?.commission_due_date) === true && 'text-red-500'}`}>
+                                <td className={`whitespace-nowrap px-3 py-4 font-semibold ${checkUTCDateExpired(sale?.commission_due_date) === true && sale?.paid_at === null && 'text-red-500'}`}>
                                   <span>{priceStringDivided(sale?.commission_total, activeCompany?.company_currency)}</span>
                                 </td>
                                 {
                                   planDetails === 'free' &&
-                                  <td className={`whitespace-nowrap px-3 py-4 font-semibold ${checkUTCDateExpired(sale?.commission_due_date) === true && 'text-red-500'}`}>
+                                  <td className={`whitespace-nowrap px-3 py-4 font-semibold ${checkUTCDateExpired(sale?.commission_due_date) === true && sale?.paid_at === null &&  'text-red-500'}`}>
                                     <span>{priceStringDivided(((9/100)*sale?.commission_sale_value).toFixed(2), activeCompany?.company_currency)}</span>
                                   </td>
                                 }
@@ -352,7 +348,9 @@ export const CommissionsTemplate = ({ page }) => {
                                   </td>
                                 }
                                 <td className="whitespace-nowrap px-3 py-4">
-                                  <span>{sale?.affiliate?.details?.email}</span>
+                                  <p><strong>Referrer: </strong>{sale?.affiliate?.details?.email}</p>
+                                  <p><strong>Referral ID: </strong>{sale?.referral_id}</p>
+                                  <p><strong>Signup Email/ID: </strong>{sale?.referral?.referral_reference_email}</p>
                                 </td>
                                 {
                                   page !== 'index' && page !== 'pending' &&
@@ -360,9 +358,6 @@ export const CommissionsTemplate = ({ page }) => {
                                     <span>{sale?.affiliate?.details?.paypal_email ?? 'Not set'}</span>
                                   </td>
                                 }
-                                <td className="whitespace-nowrap px-3 py-4 text-sm">
-                                  {sale?.referral_id}
-                                </td>
                                 <td className="whitespace-nowrap px-3 py-4 text-sm">
                                   <div data-tip={sale?.created}>{UTCtoString(sale?.created)}</div>
                                 </td>

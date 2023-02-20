@@ -104,15 +104,22 @@ export default function AffiliateInvitePage() {
                         Select a campaign for the affiliates to join
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
-                        <select className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required={true} name="campaign_id" id="campaign_id">
-                          {
-                            userCampaignDetails?.map((campaign: any) => {
-                              return(
-                                <option value={campaign?.campaign_id}>{campaign?.campaign_name}</option>
-                              )
-                            })
-                          }
-                        </select>
+                        {
+                          userCampaignDetails !== null && userCampaignDetails?.length ?
+                            <select defaultValue={router?.query?.campaignId && router?.query?.campaignId} className="w-full rounded-xl border-2 border-gray-300 outline-none p-4" required={true} name="campaign_id" id="campaign_id">
+                              {
+                                userCampaignDetails?.map((campaign: any) => {
+                                  return(
+                                    <option value={campaign?.campaign_id}>{campaign?.campaign_name}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          :
+                            <div className="pt-2 pb-6">
+                              <LoadingDots/>
+                            </div>
+                        }
                       </div>
                     </div>
                     <div>

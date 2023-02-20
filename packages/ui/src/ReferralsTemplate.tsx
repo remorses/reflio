@@ -157,10 +157,10 @@ export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) =>
                                 Commission Amount
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
-                                Status
+                                Created
                               </th>
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
-                                Date Created
+                                Status
                               </th>
                             </tr>
                           </thead>
@@ -188,6 +188,9 @@ export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) =>
                                   {referral?.commission_type === 'percentage' ? `${referral?.commission_value}%` : `${priceString(referral?.commission_value, activeCompany?.company_currency)}`}
                                 </td>
                                 <td className="whitespace-nowrap px-3 py-4 text-sm">
+                                  <div data-tip={referral?.created}>{UTCtoString(referral?.created)}</div>
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm">
                                   {
                                     referral?.referral_converted === true ?
                                       <div className={`bg-secondary-2 text-white inline-flex rounded-full px-3 py-1 text-xs font-semibold leading-5`}>
@@ -202,9 +205,6 @@ export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) =>
                                         {checkUTCDateExpired(referral?.referral_expiry) === true ? 'Expired' : 'Visited link'}
                                       </div>
                                   }
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm">
-                                  <div data-tip={referral?.created}>{UTCtoString(referral?.created)}</div>
                                 </td>
                               </tr>
                             ))}

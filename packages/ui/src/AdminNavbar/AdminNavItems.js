@@ -32,6 +32,7 @@ export const AdminNavItems = () => {
   const router = useRouter();
 
   const manageNavigation = [
+    { name: 'Analytics', href: `/dashboard/${activeCompany?.company_id}/analytics`, icon: ChartBarIcon },
     // { name: 'Home', href: `/dashboard/${activeCompany?.company_id}/home`, icon: TemplateIcon },
     { name: 'Campaigns', href: `/dashboard/${activeCompany?.company_id}/campaigns`, icon: CollectionIcon },
     { name: 'Affiliates', href: `/dashboard/${activeCompany?.company_id}/affiliates`, icon: UserGroupIcon },
@@ -39,7 +40,6 @@ export const AdminNavItems = () => {
     { name: 'Sales & Commissions', href: `/dashboard/${activeCompany?.company_id}/commissions`, icon: CurrencyDollarIcon },
     // { name: 'Apps', href: `/dashboard/${activeCompany?.company_id}/apps`, icon: ChipIcon },
     { name: 'Assets', href: `/dashboard/${activeCompany?.company_id}/assets`, icon: CloudDownloadIcon },
-    { name: 'Analytics', href: `/dashboard/${activeCompany?.company_id}/analytics`, icon: ChartBarIcon },
     { name: 'Company', href: `/dashboard/${activeCompany?.company_id}/settings`, icon: CogIcon }
   ];
 
