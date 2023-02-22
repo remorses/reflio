@@ -16,7 +16,7 @@ const manualSignupReferral = async (req, res) => {
       const user = await getUser(token);
 
       if(user){
-        const signup = await manualReferralSignup(referralIdentifier, referralId);
+        const signup = await manualReferralSignup(body?.referralIdentifier, body?.referralId);
 
         if(signup !== "error"){
           return res.status(200).json({ response: signup });
