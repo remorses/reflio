@@ -251,9 +251,6 @@ export default function HomePage() {
     }
   }, [session, activeCompany, dateValue]);
 
-  console.log('analytics:')
-  console.log(analytics)
-
   return (
     <>
       <SEOMeta title="Home"/>

@@ -122,7 +122,13 @@ export const slugifyString = (text) => {
 };
 
 export const priceString = (price, currency) => {
-  if(price === null || !currency) return "error";
+  if(price === null || price === undefined){
+    price = 0;
+  }
+
+  if(!currency){
+    currency = 'USD';
+  }
 
   let string = new Intl.NumberFormat('en-US', {
     style: 'currency',

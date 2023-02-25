@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useUser, changeReferralCode } from '@/utils/useUser';
+import { useUser } from '@/utils/useUser';
 import SEOMeta from '@/templates/SEOMeta'; 
 import Button from '@/components/Button'; 
 import { useUserAffiliate } from '@/utils/UserAffiliateContext';
@@ -11,12 +11,12 @@ const AffiliateCodePage = () => {
   const router = useRouter();
   const { user, session } = useUser();
   const { userAffiliateDetails } = useUserAffiliate();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  let affiliateFiltered = null;
+  let affiliateFiltered = null as any;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; target: HTMLFormElement | any; }) => {
     if(affiliateFiltered === null) return false;
 
     e.preventDefault();
@@ -25,8 +25,8 @@ const AffiliateCodePage = () => {
       return false;
     }
 
-    const formData = new FormData(e.target);
-    const data = {};
+    const formData = new FormData(e.target) as any;
+    const data = {} as any;
  
     for (let entry of formData.entries()) {
       data[entry[0]] = entry[1];
@@ -60,8 +60,8 @@ const AffiliateCodePage = () => {
   };
   
   if(affiliateFiltered === null && userAffiliateDetails !== null && userAffiliateDetails?.length > 0){
-    if(userAffiliateDetails?.filter(campaign=>campaign?.affiliate_id === router.query.affiliateId)?.length){
-      affiliateFiltered = userAffiliateDetails?.filter(campaign=>campaign?.affiliate_id === router.query.affiliateId)[0];
+    if(userAffiliateDetails?.filter((campaign: any)=>campaign?.affiliate_id === router.query.affiliateId)?.length){
+      affiliateFiltered = userAffiliateDetails?.filter((campaign: any)=>campaign?.affiliate_id === router.query.affiliateId)[0];
     } else {
       router.replace('/dashboard/campaigns')
     }
@@ -87,8 +87,8 @@ const AffiliateCodePage = () => {
                   <div>
                     <div className="mt-1 flex items-center mb-3">
                       <input
-                        minLength="3"
-                        maxLength="20"
+                        minLength={3}
+                        maxLength={50}
                         required
                         defaultValue={affiliateFiltered?.referral_code ? affiliateFiltered?.referral_code : affiliateFiltered?.affiliate_id}
                         type="text"

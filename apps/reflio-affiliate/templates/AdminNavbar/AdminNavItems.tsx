@@ -35,7 +35,7 @@ export const AdminNavItems = () => {
     <>
       <nav className="mt-8 flex-1 flex flex-col overflow-y-auto" aria-label="Sidebar">
         <div className="p-5">
-          {navigation.map((item) => (
+          {navigation.map((item: any) => (
             <a
               key={item.name}
               href={item.href}

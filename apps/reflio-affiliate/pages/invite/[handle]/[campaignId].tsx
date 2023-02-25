@@ -3,14 +3,21 @@ import { postData } from '@/utils/helpers';
 import SEOMeta from '@/templates/SEOMeta';
 import { useRouter } from 'next/router';
 
-export default function CampaignInviteIndex({ publicCampaignData }){
+const typedPostData = postData as any;
+
+type CampaignInviteIndexTypes = {
+  publicCampaignData: any
+}
+
+function CampaignInviteIndex({ publicCampaignData }: CampaignInviteIndexTypes){
   const router = useRouter();
-  let campaignImageUrl = `/api/public/campaign-image?companyHandle=${router?.query?.handle}`
+
+  let campaignImageUrl = `/api/public/campaign-image?companyHandle=${router?.query?.handle}&campaignId=${router?.query?.campaignId}`
 
   return(
     <>
       <SEOMeta 
-        title={publicCampaignData?.campaign_name ?? 'Campaign not found'}
+        title={`${publicCampaignData?.campaign_name}`}
         description={`Join ${publicCampaignData?.campaign_name} and get ${publicCampaignData?.commission_type === 'percentage' ? `${publicCampaignData?.commission_value}% commission on all paid referrals.` : `${publicCampaignData?.company_currency}${publicCampaignData?.commission_value} commission on all paid referrals.`}`}
         img={campaignImageUrl}
       />
@@ -19,14 +26,20 @@ export default function CampaignInviteIndex({ publicCampaignData }){
   )
 };
 
-export async function getServerSideProps({ req, res, query }) {  
-  const { handle } = query
-  const { campaign } = await postData({
+export async function getServerSideProps({ query }: any) {
+  
+  const { handle, campaignId } = query
+  
+  const { campaign } = await typedPostData({
     url: `${process.env.NEXT_PUBLIC_AFFILIATE_SITE_URL}/api/public/campaign`,
     data: {
       "companyHandle": handle ? handle : null,
-      "campaignId": null
+      "campaignId": campaignId ? campaignId : null
     }
   });
+
   return { props: { publicCampaignData: campaign } }
 }
+
+
+export default CampaignInviteIndex;

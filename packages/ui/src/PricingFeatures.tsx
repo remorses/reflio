@@ -64,11 +64,11 @@ export const PricingFeatures: React.FC<PricingFeaturesTypes> = ({ productName, n
         type: 'eligible'
       },
       {
-        text: 'Campaign page customizer',
-        type: 'ineligible'
+        text: 'Campaign and affiliate analytics',
+        type: 'eligible'
       },    
       {
-        text: 'Campaign and affiliate analytics',
+        text: 'Campaign page customizer',
         type: 'ineligible'
       },    
       {

@@ -141,9 +141,9 @@ export const AdminNavItems = () => {
                       <Link 
                         passHref 
                         href="/dashboard/add-company"
-                        className="block bg-gray-200 cursor-pointer select-none font-semibold relative py-3 px-5 -mt-1"
+                        className="block bg-white cursor-pointer select-none font-semibold relative py-3 px-5 -mt-1"
                       >
-                        + Add company
+                        + Add new company
                       </Link>
                     </Listbox.Options>
                   </Transition>
