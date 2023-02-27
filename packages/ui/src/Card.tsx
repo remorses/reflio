@@ -1,4 +1,6 @@
-export const Card = (props) => {
+import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
+
+export const Card = (props: { secondary?: any; className?: string; children?: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) => {
 
   let styles = 'shadow-lg rounded-xl max-w-3xl border-4';
 

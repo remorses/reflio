@@ -26,14 +26,7 @@ export const PricingParams = () => {
   })
 }
 
-type PricingFeaturesTypes = {
-  productName: string;
-  normal?: any;
-};
-
-export const PricingFeatures: React.FC<PricingFeaturesTypes> = ({ productName, normal }) => {
-  if(!productName) return null;
-
+export const PricingFeatures = ({ productName, normal }: { productName: string, normal?: boolean }) => {
   const capitalizedName = productName.charAt(0).toUpperCase() + productName.slice(1);
   const plans = PricingParams();
 

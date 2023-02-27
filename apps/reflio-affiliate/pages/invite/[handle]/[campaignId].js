@@ -3,9 +3,7 @@ import { postData } from '@/utils/helpers';
 import SEOMeta from '@/templates/SEOMeta';
 import { useRouter } from 'next/router';
 
-const typedPostData = postData as any;
-
-function CampaignInviteIndex({ publicCampaignData }: { publicCampaignData: any }){
+function CampaignInviteIndex({ publicCampaignData }){
   const router = useRouter();
 
   let campaignImageUrl = `/api/public/campaign-image?companyHandle=${router?.query?.handle}&campaignId=${router?.query?.campaignId}`
@@ -22,11 +20,11 @@ function CampaignInviteIndex({ publicCampaignData }: { publicCampaignData: any }
   )
 };
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query }) {
   
   const { handle, campaignId } = query
   
-  const { campaign } = await typedPostData({
+  const { campaign } = await postData({
     url: `${process.env.NEXT_PUBLIC_AFFILIATE_SITE_URL}/api/public/campaign`,
     data: {
       "companyHandle": handle ? handle : null,

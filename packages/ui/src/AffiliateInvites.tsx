@@ -1,32 +1,29 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from 'react';
 import { useUser } from '@/utils/useUser';
 import { useUserAffiliate } from '@/affiliate-utils/UserAffiliateContext';
 import Button from '@/components/Button'; 
 import toast from 'react-hot-toast';
 import { postData } from '@/utils/helpers';
 
-const AffiliateInvites = (props) => {
+const AffiliateInvites = (props: { campaignId?: string; }) => {
   const router = useRouter();
   const { session } = useUser();
   const { userAffiliateInvites } = useUserAffiliate();
   const [loading, setLoading] = useState(false);
   const affiliateInvitePage = router?.query?.handle ? true : false;
-  let campaignInviteData = null;
+  let campaignInviteData = null as any;
 
   useEffect(() => {
     if(props?.campaignId && userAffiliateInvites !== null && userAffiliateInvites?.length > 0){
-      if(userAffiliateInvites?.filter(invite => invite?.campaign_id === props?.campaignId).length > 0){
-        campaignInviteData = userAffiliateInvites?.filter(invite => invite?.campaign_id === props?.campaignId)[0];
+      if(userAffiliateInvites?.filter((invite: { campaign_id: string; }) => invite?.campaign_id === props?.campaignId).length > 0){
+        campaignInviteData = userAffiliateInvites?.filter((invite: { campaign_id: string; }) => invite?.campaign_id === props?.campaignId)[0];
       }
     }
   }, [userAffiliateInvites]);
 
 
-  console.log('campaignInviteData:')
-  console.log(campaignInviteData)
-
-  const handleInviteDecision = async (type, affiliateId) => {    
+  const handleInviteDecision = async (type: string, affiliateId: string) => {    
     setLoading(true);
 
     try {
@@ -69,7 +66,7 @@ const AffiliateInvites = (props) => {
                     {
                       campaignInviteData !== null ?
                         <Button
-                          onClick={e=>{handleInviteDecision('accept', campaignInviteData?.affiliate_id)}}
+                          onClick={(e: any)=>{handleInviteDecision('accept', campaignInviteData?.affiliate_id)}}
                           disabled={loading}
                           secondary
                           large
@@ -82,7 +79,7 @@ const AffiliateInvites = (props) => {
                   </div>
                 :
                   <div className="space-y-4">
-                    {userAffiliateInvites?.map(invite => {
+                    {userAffiliateInvites?.map((invite: { campaign_name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; company_name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; affiliate_id: any; }) => {
                       return(
                         <div className="rounded-lg bg-secondary p-6">
                           <div className="flex">
@@ -90,7 +87,7 @@ const AffiliateInvites = (props) => {
                               <p className="mb-3 xl:mb-0 text-md text-white font-semibold">You have been invited to join campaign <span className="font-bold underline">{invite?.campaign_name}</span> by <span className="font-bold underline">{invite?.company_name}</span></p>
                               <div className="xl:flex xl:flex-col xl:items-center xl:justify-center">
                                 <Button
-                                  onClick={e=>{handleInviteDecision('accept', invite?.affiliate_id)}}
+                                  onClick={(e: any)=>{handleInviteDecision('accept', invite?.affiliate_id)}}
                                   large
                                   primary
                                   disabled={loading}

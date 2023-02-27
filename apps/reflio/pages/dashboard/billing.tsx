@@ -81,13 +81,8 @@ export default function BillingPage() {
       }
     })
   }
-  
-  type ProgressBarTypes = {
-    type: string;
-    unlimited?: boolean;
-  };
 
-  const ProgressBar: React.FC<ProgressBarTypes> = ({ type, unlimited }) => {
+  const ProgressBar = ({ type, unlimited }: { type: string, unlimited?: boolean }) => {
     if(usageData === null) return null;
     
     const plans = PricingParams() as any ;

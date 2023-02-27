@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect } from 'react';
 import { useUser, handleActiveCompany } from '@/utils/useUser';
 import { useRouter } from 'next/router';
 import { classNames } from '@/utils/helpers';
@@ -50,7 +50,7 @@ export const AdminNavItems = () => {
 
   const navItemClass = 'flex items-center py-1 px-2 my-0.5 text-[15px] font-semibold rounded-lg hover:bg-gray-300';
 
-  const handleCompanySwitch = async (companyId) => {
+  const handleCompanySwitch = async (companyId: string) => {
     if(!companyId) return false;
 
     await handleActiveCompany(companyId).then((result) => {
@@ -61,7 +61,9 @@ export const AdminNavItems = () => {
   };
 
   useEffect(() => {
+    // @ts-ignore
     if(typeof Canny !== 'undefined'){
+      // @ts-ignore
       Canny('initChangelog', {
         appID: '63109013e111097776764cdd',
         position: 'bottom',
@@ -108,7 +110,7 @@ export const AdminNavItems = () => {
                       static
                       className="top-0 left-0 absolute rounded-lg z-20 w-full bg-white max-h-60 text-base overflow-auto focus:outline-none sm:text-sm border-4 border-primary-2 shadow-xl shadow-secondary"
                     >
-                      {userCompanyDetails?.map((company) => (
+                      {userCompanyDetails?.map((company: { company_id: Key | null | undefined; company_name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined; }) => (
                         <Listbox.Option
                           key={company?.company_id}
                           className={({ selected, active }) =>
@@ -159,7 +161,6 @@ export const AdminNavItems = () => {
               passHref
               key={item.name}
               href={item.href}
-              aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 router?.asPath?.includes(item.href) && 'bg-gray-300',
                 navItemClass
@@ -177,7 +178,6 @@ export const AdminNavItems = () => {
               passHref
               key={item.name}
               href={item.href}
-              aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 router?.asPath?.includes(item.href) && 'bg-gray-300',
                 navItemClass
@@ -205,6 +205,7 @@ export const AdminNavItems = () => {
             </Link>
           }
           {
+            // @ts-ignore
             typeof Canny !== 'undefined' &&
             <button
               data-canny-changelog

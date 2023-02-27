@@ -5,11 +5,7 @@ import { useRouter } from 'next/router';
 
 const typedPostData = postData as any;
 
-type CampaignInviteIndexTypes = {
-  publicCampaignData: any
-}
-
-export default function CampaignInviteIndex({ publicCampaignData }: CampaignInviteIndexTypes){
+export default function CampaignInviteIndex({ publicCampaignData }: { publicCampaignData: any }){
   const router = useRouter();
   let campaignImageUrl = `/api/public/campaign-image?companyHandle=${router?.query?.handle}`
 

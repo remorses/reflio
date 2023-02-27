@@ -15,15 +15,10 @@ import ReactTooltip from 'react-tooltip';
 import Modal from '@/components/Modal';
 import { Menu, Transition } from '@headlessui/react';
 
-type ReferralsTemplateTypes = {
-  page: string;
-};
-
-export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) => {
+export const ReferralsTemplate = ({ page }: { page: string }) => {
   const router = useRouter();
   const { activeCompany } = useCompany();
   const [referrals, setReferrals] = useState<any>([]);
-  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const sortOptions = [
@@ -246,12 +241,6 @@ export const ReferralsTemplate: React.FC<ReferralsTemplateTypes> = ({ page }) =>
             <LoadingTile/>
         }
       </div>
-      {
-        showModal && 
-        <Modal modalOpen={showModal} setModalOpen={setShowModal}>
-
-        </Modal>
-      }
     </>
   );
 }
