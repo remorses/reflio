@@ -239,7 +239,10 @@ export default function BillingPage() {
               <h2 className="text-xl leading-6 font-semibold text-gray-900">Current Plan: <span className="capitalize font-medium">{planDetails === 'free' ? 'Pay As You Go (9% fee)' : planDetails}</span></h2>
             </div>
             <div className="bg-gray-100 rounded-xl p-6">
-              <PricingFeatures normal productName={planDetails}/>
+              {
+                planDetails?.length &&
+                <PricingFeatures normal productName={planDetails}/>
+              }
             </div>
             <div className="mt-6 pt-6 border-t-4 bg-white sm:flex sm:items-center sm:justify-start">
               <Button
