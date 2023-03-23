@@ -722,16 +722,25 @@ export const deleteAffiliate = async (id) => {
 };
 
 export const deleteReferral = async (id) => {
-  const { error } = await supabase
-    .from('referrals')
+  const deleteAllCommissions = await supabase
+    .from('commissions')
     .delete()
     .match({ referral_id: id })
 
-    if (error) {
-      return "error";
-    } else {
-      return "success";
-    }
+  if(deleteAllCommissions){
+    const { error } = await supabase
+      .from('referrals')
+      .delete()
+      .match({ referral_id: id })
+  
+      if (error) {
+        return "error";
+      } else {
+        return "success";
+      }
+  }
+
+  return "error";
 };
 
 export const deleteCommission = async (id) => {
