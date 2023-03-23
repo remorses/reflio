@@ -23,7 +23,7 @@ export default function InnerDashboardPage() {
   const { mergedAffiliateDetails } = useAffiliate() as any;
 
   const handleDelete = async (affiliateId: string) => {
-    if (window.confirm('Are you sure you want to delete this affiliate? This decision is irreversible')){
+    if (window.confirm('Are you sure you want to delete this affiliate? This decision is irreversible, and will delete all previous referrals for this affiliate.')){
       await deleteAffiliate(affiliateId).then((result) => {
         if(result === "success"){
           router.reload();

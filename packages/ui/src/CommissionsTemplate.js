@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
-import { getSales, payCommissions, useUser } from '@/utils/useUser';
+import { getSales, payCommissions, deleteCommission, useUser } from '@/utils/useUser';
 import { useCompany } from '@/utils/CompanyContext';
 import LoadingTile from '@/components/LoadingTile';
 import Button from '@/components/Button'; 
@@ -10,6 +10,9 @@ import { UTCtoString, priceStringDivided, checkUTCDateExpired, classNames } from
 import ReactTooltip from 'react-tooltip';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ExclamationIcon } from '@heroicons/react/solid';
+import {
+  TrashIcon
+} from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import { CSVDownload } from "react-csv";
 import toast from 'react-hot-toast';
@@ -100,6 +103,18 @@ export const CommissionsTemplate = ({ page }) => {
         toast.error('There was an error when marking the commissions as paid.');
       }
     });
+  };
+
+  const handleDelete = async (commissionId) => {
+    if (window.confirm('Are you sure you want to delete this commission? This decision is irreversible')){
+      await deleteCommission(commissionId).then((result) => {
+        if(result === "success"){
+          router.reload();
+        } else {
+          toast.error('There was an error when deleting this commission. Please try again later.');
+        }
+      });
+    }
   };
 
   let newCSVDownloadItems = [];
@@ -297,6 +312,8 @@ export const CommissionsTemplate = ({ page }) => {
                                   Status
                                 </th>
                               }
+                              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
+                              </th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white text-sm">
@@ -375,6 +392,11 @@ export const CommissionsTemplate = ({ page }) => {
                                     </div>
                                   </td>
                                 }
+                                <td className="whitespace-nowrap px-3 py-4 text-sm">
+                                  <button onClick={e=>{handleDelete(sale?.commission_id)}}>
+                                    <TrashIcon className="w-5 h-auto"/>
+                                  </button>
+                                </td>
                               </tr>
                             ))}
                           </tbody>

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { Fragment, useState } from 'react';
-import { getReferrals } from '@/utils/useUser';
+import { getReferrals, deleteReferral } from '@/utils/useUser';
 import { useCompany } from '@/utils/CompanyContext';
 import LoadingTile from '@/components/LoadingTile';
 import Button from '@/components/Button'; 
@@ -12,8 +12,11 @@ import {
 } from '@heroicons/react/solid';
 import { UTCtoString, checkUTCDateExpired, priceString, classNames } from '@/utils/helpers';
 import ReactTooltip from 'react-tooltip';
-import Modal from '@/components/Modal';
+import {
+  TrashIcon
+} from '@heroicons/react/outline';
 import { Menu, Transition } from '@headlessui/react';
+import { toast } from 'react-hot-toast';
 
 export const ReferralsTemplate = ({ page }: { page: string }) => {
   const router = useRouter();
@@ -63,6 +66,18 @@ export const ReferralsTemplate = ({ page }: { page: string }) => {
       })
     }
   }
+
+  const handleDelete = async (referralId: string) => {
+    if (window.confirm('Are you sure you want to delete this referral? This decision is irreversible')){
+      await deleteReferral(referralId).then((result) => {
+        if(result === "success"){
+          router.reload();
+        } else {
+          toast.error('There was an error when deleting this referral. Please try again later.');
+        }
+      });
+    }
+  };
 
   return (
     <>
@@ -157,6 +172,8 @@ export const ReferralsTemplate = ({ page }: { page: string }) => {
                               <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
                                 Status
                               </th>
+                              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold">
+                              </th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200 bg-white text-sm ">
@@ -200,6 +217,11 @@ export const ReferralsTemplate = ({ page }: { page: string }) => {
                                         {checkUTCDateExpired(referral?.referral_expiry) === true ? 'Expired' : 'Visited link'}
                                       </div>
                                   }
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm">
+                                  <button onClick={e=>{handleDelete(referral?.referral_id)}}>
+                                    <TrashIcon className="w-5 h-auto"/>
+                                  </button>
                                 </td>
                               </tr>
                             ))}

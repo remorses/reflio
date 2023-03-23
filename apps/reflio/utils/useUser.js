@@ -690,11 +690,55 @@ export const manuallyVerifyDomain = async (companyId) => {
   return "success";
 }
 
-export const deleteAffiliate = async (id) => {
-  const { error } = await supabase
-    .from('affiliates')
+const deleteReferralsAndCommissions = async (affiliateId) => {
+  await supabase
+    .from('referrals')
     .delete()
-    .match({ affiliate_id: id })
+    .match({ affiliate_id: affiliateId })
+
+  await supabase
+    .from('commissions')
+    .delete()
+    .match({ affiliate_id: affiliateId })
+
+  return "success";
+};
+
+export const deleteAffiliate = async (id) => {
+  const deleteStatus = await deleteReferralsAndCommissions(id);
+
+  if(deleteStatus === "success"){
+    const { error } = await supabase
+      .from('affiliates')
+      .delete()
+      .match({ affiliate_id: id })
+    
+      if (error) {
+        return "error";
+      } else {
+        return "success";
+      }
+  }
+};
+
+export const deleteReferral = async (id) => {
+  const { error } = await supabase
+    .from('referrals')
+    .delete()
+    .match({ referral_id: id })
+
+    if (error) {
+      return "error";
+    } else {
+      return "success";
+    }
+};
+
+export const deleteCommission = async (id) => {
+  const { error } = await supabase
+    .from('commissions')
+    .delete()
+    .match({ commission_id: id })
 
     if (error) {
       return "error";
