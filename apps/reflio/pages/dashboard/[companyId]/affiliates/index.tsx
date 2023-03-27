@@ -91,8 +91,9 @@ export default function InnerDashboardPage() {
                               <tr key={affiliate?.affiliate_id}>
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                   <div className="flex items-center">
-                                    <div className="ml-4">
-                                      <span>{affiliate?.details?.email ?? affiliate?.invite_email}</span>
+                                    <div>
+                                      <p><span className="font-bold">Email: </span>{affiliate?.details?.email ?? affiliate?.invite_email}</p>
+                                      <p><span className="font-bold">Tracking code: </span>{affiliate?.referral_code ?? 'Not set'}</p>
                                     </div>
                                   </div>
                                 </td>
