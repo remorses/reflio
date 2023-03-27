@@ -93,7 +93,7 @@ export default function InnerDashboardPage() {
                                   <div className="flex items-center">
                                     <div>
                                       <p><span className="font-bold">Email: </span>{affiliate?.details?.email ?? affiliate?.invite_email}</p>
-                                      <p><span className="font-bold">Tracking code: </span>{affiliate?.referral_code ?? 'Not set'}</p>
+                                      <p><span className="font-bold">Tracking code: </span>{affiliate?.referral_code !== null ? affiliate?.referral_code : 'Not set'}</p>
                                     </div>
                                   </div>
                                 </td>
