@@ -80,7 +80,7 @@ if(process.env.SENTRY_AUTH_TOKEN){
     images: {
       domains: ['s2.googleusercontent.com'],
     },
-    rewrites
+    ...rewrites
   });
 } else {
   module.exports = {
@@ -88,6 +88,6 @@ if(process.env.SENTRY_AUTH_TOKEN){
     images: {
       domains: ['s2.googleusercontent.com'],
     },
-    rewrites
+    ...rewrites
   };
 }
