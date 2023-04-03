@@ -40,7 +40,7 @@ export const AdminNavItems = () => {
     { name: 'Sales & Commissions', href: `/dashboard/${activeCompany?.company_id}/commissions`, icon: CurrencyDollarIcon },
     // { name: 'Apps', href: `/dashboard/${activeCompany?.company_id}/apps`, icon: ChipIcon },
     { name: 'Assets', href: `/dashboard/${activeCompany?.company_id}/assets`, icon: CloudDownloadIcon },
-    { name: 'Company', href: `/dashboard/${activeCompany?.company_id}/settings`, icon: CogIcon }
+    { name: 'Settings', href: `/dashboard/${activeCompany?.company_id}/settings`, icon: CogIcon }
   ];
 
   const settingsNavigation = [
