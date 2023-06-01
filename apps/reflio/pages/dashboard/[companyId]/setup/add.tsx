@@ -38,7 +38,7 @@ export default function TrackingSetupPage() {
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-1">Step 1: Installing the snippet on your website</h3>
               <p className="text-lg mb-5">Paste the following JavaScript snippet into your website&apos;s <code className="text-lg tracking-tight font-bold text-pink-500">{`<head>`}</code> tag</p>
-              <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg">
+              <div className="w-full rounded-xl text-lg overflow-hidden font-mono shadow-lg">
                 <CopyBlock
                   text={embedCode}
                   language='javascript'
@@ -52,7 +52,7 @@ export default function TrackingSetupPage() {
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-1">Step 2: Tracking the referral</h3>
               <p className="text-lg mb-5">To track a referral on your website, you need to run the below function when you are first creating the user. This process usually happens on your sign up page. <strong>You should do this for every sign up to make sure you catch all valid referrals. It doesn&rsquo;t matter if you send every single sign up to Reflio; our system will only save users who signed up after visiting a referral link, and has a valid cookie in their browser.</strong></p>
-              <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg">
+              <div className="w-full rounded-xl text-lg overflow-hidden font-mono shadow-lg">
                 <CopyBlock
                   text={scriptCode}
                   language='javascript'
@@ -73,7 +73,7 @@ export default function TrackingSetupPage() {
                 <h3 className="text-2xl font-semibold mb-1">Step 3: Add referral data to your Paddle checkout</h3>
                 <p className="text-lg mb-1">For Paddle based integrations, you will need to pass the referral ID to your Paddle checkout function. </p>
                 <p className="text-lg mb-3"><strong>Your initial Paddle checkout setup code will look something like this:</strong></p>
-                <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg">
+                <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg font-mono">
                   <CopyBlock
                     text={`<a href="#" id="buy-button">Buy now!</a>
 <script type="text/javascript">
@@ -89,7 +89,7 @@ export default function TrackingSetupPage() {
                   /> 
                 </div>
                 <p className="text-lg mt-4 mb-4"><strong>You will need to update the code to include an additional passthrough parameter which contains the Reflio referral ID, the parameter should look like this:</strong></p>
-                <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg">
+                <div className="w-full rounded-xl text-lg overflow-hidden shadow-lg font-mono">
                   <CopyBlock
                     text={`<a href="#" id="buy-button">Buy now!</a>
 <script type="text/javascript">
