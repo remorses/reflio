@@ -6,13 +6,16 @@ import { useRouter } from 'next/router';
 import { useUser } from '@/utils/useUser';
 import { postData } from '@/utils/helpers';
 
+
+const Toaster = dynamic(() =>
+  import("react-hot-toast").then((module) => module.Toaster)
+);
+const AdminMobileNav = dynamic(() => import('@/templates/AdminNavbar/AdminMobileNav'));
+const AdminDesktopNav = dynamic(() => import('@/templates/AdminNavbar/AdminDesktopNav'));
+
 function Layout({ children }: any) {
   const { user, session, userFinderLoaded } = useUser();
-  const Toaster = dynamic(() =>
-    import("react-hot-toast").then((module) => module.Toaster)
-  );
-  const AdminMobileNav = dynamic(() => import('@/templates/AdminNavbar/AdminMobileNav'));
-  const AdminDesktopNav = dynamic(() => import('@/templates/AdminNavbar/AdminDesktopNav'));
+  
   const router = useRouter();
   const [inviteLoading, setInviteLoading] = useState(false);
 

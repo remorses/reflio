@@ -6,15 +6,18 @@ import "@/dist/styles.css";
 import '@tremor/react/dist/esm/tremor.css';
 import Layout from '@/templates/Layout';
 import { useRouter } from 'next/router';
-import SEOMeta from '@/templates/SEOMeta'; 
+import SEOMeta from '@/templates/SEOMeta';
+
+
+const UserContextProvider = dynamic(() =>
+  import("@/utils/useUser").then((module) => module.UserContextProvider)
+);
+
+const CompanyContextProvider = dynamic(() =>
+  import("@/utils/CompanyContext").then((module) => module.CompanyContextProvider)
+);
 
 export default function MyApp({ Component, pageProps: { ...pageProps }, }: AppProps<{}>) {
-  const UserContextProvider = dynamic(() =>
-    import("@/utils/useUser").then((module) => module.UserContextProvider)
-  );
-  const CompanyContextProvider = dynamic(() =>
-    import("@/utils/CompanyContext").then((module) => module.CompanyContextProvider)
-  );
   const router = useRouter();
   
   useEffect(() => {

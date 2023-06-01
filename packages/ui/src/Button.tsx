@@ -24,9 +24,9 @@ type ButtonProps = {
   type?: string;
 };
 
-export const Button = (props: ButtonProps) => {
-  const Link = dynamic(() => import('next/link'));
+const Link = dynamic(() => import('next/link'));
 
+export const Button = (props: ButtonProps) => {
   let styles = 'relative inline-flex items-center justify-center font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all';
 
   //Sizing styles

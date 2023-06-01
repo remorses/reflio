@@ -10,15 +10,18 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
+
+const Toaster = dynamic(() =>
+  import("react-hot-toast").then((module) => module.Toaster)
+);
+const Footer = dynamic(() => import('@/components/Footer'));
+const AdminMobileNav = dynamic(() => import('@/components/AdminNavbar/AdminMobileNav'));
+const AdminDesktopNav = dynamic(() => import('@/components/AdminNavbar/AdminDesktopNav'));
+const SimpleNav = dynamic(() => import('@/components/SimpleNav'));
+
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, userFinderLoaded } = useUser();
-  const Toaster = dynamic(() =>
-    import("react-hot-toast").then((module) => module.Toaster)
-  );
-  const Footer = dynamic(() => import('@/components/Footer'));
-  const AdminMobileNav = dynamic(() => import('@/components/AdminNavbar/AdminMobileNav'));
-  const AdminDesktopNav = dynamic(() => import('@/components/AdminNavbar/AdminDesktopNav'));
-  const SimpleNav = dynamic(() => import('@/components/SimpleNav'));
+  
   const router = useRouter();
   let defaultPage = true;
   let dashboardPage = false;
